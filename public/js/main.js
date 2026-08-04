@@ -1,5 +1,1 @@
-document.getElementById("joinBtn").addEventListener("click", () => {
-
-    alert("Welcome!");
-
-});
+console.log("ARWA Quiz System Loaded");
