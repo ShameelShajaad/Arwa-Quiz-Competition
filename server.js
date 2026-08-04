@@ -11,47 +11,42 @@ const io = new Server(server);
 app.use(express.static("public"));
 
 io.on("connection", (socket) => {
+  console.log("Client Connected");
 
-    console.log("Client Connected");
+  // Send current state immediately
+  socket.emit("state", {
+    currentQuestion: game.currentQuestion,
+    timer: game.timer,
+    timerRunning: game.timerRunning,
+    teams: game.teams,
+  });
 
-    // Send current state immediately
-    socket.emit("state", game);
+  socket.on("startTimer", () => {
+    if (game.timerRunning) return;
 
-    socket.on("startTimer", () => {
+    game.timerRunning = true;
+    game.timer = 10;
 
-        if (game.timerRunning) return;
+    io.emit("timer", game.timer);
 
-        game.timerRunning = true;
-        game.timer = 10;
+    game.interval = setInterval(() => {
+      game.timer--;
 
-        io.emit("timer", game.timer);
+      io.emit("timer", game.timer);
 
-        game.interval = setInterval(() => {
+      if (game.timer <= 0) {
+        clearInterval(game.interval);
 
-            game.timer--;
+        game.timerRunning = false;
 
-            io.emit("timer", game.timer);
-
-            if (game.timer <= 0) {
-
-                clearInterval(game.interval);
-
-                game.timerRunning = false;
-
-                io.emit("timerFinished");
-
-            }
-
-        }, 1000);
-
-    });
-
+        io.emit("timerFinished");
+      }
+    }, 1000);
+  });
 });
 
 const PORT = 3000;
 
 server.listen(PORT, () => {
-
-    console.log("Server running on http://localhost:" + PORT);
-
+  console.log("Server running on http://localhost:" + PORT);
 });

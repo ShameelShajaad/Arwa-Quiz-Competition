@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "question": "What is the capital of Sri Lanka?",
+        "options": [
+            "Colombo",
+            "Kandy",
+            "Jaffna",
+            "Galle"
+        ],
+        "answer": 0,
+        "time": 10
+    },
+    {
+        "id": 2,
+        "question": "2 + 2 = ?",
+        "options": [
+            "3",
+            "4",
+            "5",
+            "6"
+        ],
+        "answer": 1,
+        "time": 10
+    }
+]
