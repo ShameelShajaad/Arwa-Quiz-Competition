@@ -1,3 +1,4 @@
+const questions = require("./data/questions.json");
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
@@ -23,6 +24,8 @@ io.on("connection", (socket) => {
 
   socket.on("startTimer", () => {
     if (game.timerRunning) return;
+
+    io.emit("question", questions[game.currentQuestion]);
 
     game.timerRunning = true;
     game.timer = 10;
