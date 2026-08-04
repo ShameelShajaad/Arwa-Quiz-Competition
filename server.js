@@ -2,50 +2,56 @@ const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
 
+const game = require("./game/gameState");
+
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
 app.use(express.static("public"));
 
-io.on("connection",(socket)=>{
+io.on("connection", (socket) => {
 
-console.log("Connected");
+    console.log("Client Connected");
 
-socket.on("timer",(time)=>{
+    // Send current state immediately
+    socket.emit("state", game);
 
-io.emit("timer",time);
+    socket.on("startTimer", () => {
 
-});
+        if (game.timerRunning) return;
 
-socket.on("startTimer",()=>{
+        game.timerRunning = true;
+        game.timer = 10;
 
-io.emit("startTimer");
+        io.emit("timer", game.timer);
 
-});
+        game.interval = setInterval(() => {
 
-socket.on("nextQuestion",()=>{
+            game.timer--;
 
-io.emit("nextQuestion");
+            io.emit("timer", game.timer);
 
-});
+            if (game.timer <= 0) {
 
-socket.on("correct",()=>{
+                clearInterval(game.interval);
 
-io.emit("correct");
+                game.timerRunning = false;
 
-});
+                io.emit("timerFinished");
 
-socket.on("wrong",()=>{
+            }
 
-io.emit("wrong");
+        }, 1000);
 
-});
+    });
 
 });
 
 const PORT = 3000;
 
 server.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+
+    console.log("Server running on http://localhost:" + PORT);
+
 });
