@@ -39,6 +39,11 @@ socket.on("question", (q) => {
     btn.disabled = false;
 
     btn.onclick = () => {
+      if (team === "") {
+        alert("Please join a team first.");
+        return;
+      }
+
       if (answered) return;
 
       answered = true;

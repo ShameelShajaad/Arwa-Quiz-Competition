@@ -14,10 +14,18 @@ app.use(express.static("public"));
 io.on("connection", (socket) => {
   console.log("Client Connected");
 
-  socket.on("answer", (data) => {
-    console.log("Answer Received");
+  socket.on("joinTeam", (team) => {
+    socket.team = team;
 
-    console.log(data);
+    console.log("Joined:", team);
+  });
+
+  socket.on("answer", (data) => {
+    console.log("================================");
+    console.log("TEAM:", data.team);
+    console.log("ANSWER:", data.answer);
+    console.log("TIME LEFT:", data.remainingTime);
+    console.log("================================");
   });
 
   // Send current state immediately
