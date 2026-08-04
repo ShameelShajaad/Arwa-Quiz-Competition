@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Host Dashboard</title>
 
@@ -16,9 +19,44 @@
 
 <h1>HOST DASHBOARD</h1>
 
-<p>Coming next...</p>
+<br>
+
+<h2 id="questionNo">
+Question 1 / 20
+</h2>
+
+<br>
+
+<h2 id="timer">
+10
+</h2>
+
+<br>
+
+<div class="buttons">
+
+<button id="startBtn">START</button>
+
+<button id="nextBtn">NEXT</button>
 
 </div>
 
+<br>
+
+<div class="buttons">
+
+<button id="correctBtn">CORRECT</button>
+
+<button id="wrongBtn">WRONG</button>
+
+</div>
+
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="js/host.js"></script>
+
 </body>
+
 </html>

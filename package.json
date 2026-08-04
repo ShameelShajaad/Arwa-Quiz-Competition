@@ -21,6 +21,7 @@
   "homepage": "https://github.com/ShameelShajaad/Arwa-Quiz-Competition#readme",
   "dependencies": {
     "express": "^5.2.1",
+    "nodemon": "^3.1.14",
     "socket.io": "^4.8.3"
   }
 }
