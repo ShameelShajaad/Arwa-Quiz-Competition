@@ -8,12 +8,40 @@ const io = new Server(server);
 
 app.use(express.static("public"));
 
-io.on("connection", (socket) => {
-    console.log("A user connected");
+io.on("connection",(socket)=>{
 
-    socket.on("disconnect", () => {
-        console.log("User disconnected");
-    });
+console.log("Connected");
+
+socket.on("timer",(time)=>{
+
+io.emit("timer",time);
+
+});
+
+socket.on("startTimer",()=>{
+
+io.emit("startTimer");
+
+});
+
+socket.on("nextQuestion",()=>{
+
+io.emit("nextQuestion");
+
+});
+
+socket.on("correct",()=>{
+
+io.emit("correct");
+
+});
+
+socket.on("wrong",()=>{
+
+io.emit("wrong");
+
+});
+
 });
 
 const PORT = 3000;
