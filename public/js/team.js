@@ -1,9 +1,7 @@
-const socket=io();
+const socket = io();
 
-const timer=document.getElementById("timer");
+socket.on("timer", (time) => {
 
-socket.on("timer",(value)=>{
-
-timer.innerHTML=value;
+    document.getElementById("timer").innerHTML = time;
 
 });
