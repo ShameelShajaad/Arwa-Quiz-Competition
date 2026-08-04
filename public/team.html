@@ -4,6 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Team</title>
 
@@ -15,6 +16,32 @@
 
 <div class="card">
 
+<h1 id="teamName">
+Select Team
+</h1>
+
+<select id="teamSelect">
+
+<option value="">Choose Team</option>
+
+<option value="A">Team A</option>
+
+<option value="B">Team B</option>
+
+<option value="C">Team C</option>
+
+<option value="D">Team D</option>
+
+</select>
+
+<br><br>
+
+<button id="joinBtn">
+JOIN
+</button>
+
+<br><br>
+
 <h2 id="question">
 Waiting for Host...
 </h2>
@@ -24,11 +51,8 @@ Waiting for Host...
 <div id="answers">
 
 <button class="answer" id="a0"></button>
-
 <button class="answer" id="a1"></button>
-
 <button class="answer" id="a2"></button>
-
 <button class="answer" id="a3"></button>
 
 </div>
@@ -42,7 +66,6 @@ Waiting for Host...
 </div>
 
 <script src="/socket.io/socket.io.js"></script>
-
 <script src="js/team.js"></script>
 
 </body>

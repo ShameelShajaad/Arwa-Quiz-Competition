@@ -14,6 +14,12 @@ app.use(express.static("public"));
 io.on("connection", (socket) => {
   console.log("Client Connected");
 
+  socket.on("answer", (data) => {
+    console.log("Answer Received");
+
+    console.log(data);
+  });
+
   // Send current state immediately
   socket.emit("state", {
     currentQuestion: game.currentQuestion,
