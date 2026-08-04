@@ -1,51 +1,59 @@
 const socket = io();
 
+let team = "";
+
 let answered = false;
 
-socket.on("timer",(time)=>{
+socket.on("timer", (time) => {
+  document.getElementById("timer").innerHTML = time;
 
-document.getElementById("timer").innerHTML=time;
+  document.getElementById("joinBtn").onclick = () => {
+    const selected = document.getElementById("teamSelect").value;
 
+    if (!selected) {
+      alert("Select your team.");
+      return;
+    }
+
+    team = selected;
+
+    document.getElementById("teamName").innerHTML = "TEAM " + team;
+
+    socket.emit("joinTeam", team);
+
+    document.getElementById("joinBtn").disabled = true;
+    document.getElementById("teamSelect").disabled = true;
+  };
 });
 
-socket.on("question",(q)=>{
+socket.on("question", (q) => {
+  answered = false;
 
-answered=false;
+  document.getElementById("question").innerHTML = q.question;
 
-document.getElementById("question").innerHTML=q.question;
+  for (let i = 0; i < 4; i++) {
+    const btn = document.getElementById("a" + i);
 
-for(let i=0;i<4;i++){
+    btn.innerHTML = q.options[i];
 
-const btn=document.getElementById("a"+i);
+    btn.disabled = false;
 
-btn.innerHTML=q.options[i];
+    btn.onclick = () => {
+      if (answered) return;
 
-btn.disabled=false;
+      answered = true;
 
-btn.onclick=()=>{
+      btn.style.background = "#2ecc71";
 
-if(answered)return;
+      socket.emit("answer", {
+        team: team,
+        answer: i,
+        remainingTime: Number(document.getElementById("timer").innerHTML),
+      });
 
-answered=true;
-
-btn.style.background="#2ecc71";
-
-socket.emit("answer",{
-
-answer:i,
-
-remainingTime:Number(document.getElementById("timer").innerHTML)
-
-});
-
-document.querySelectorAll(".answer").forEach(b=>{
-
-b.disabled=true;
-
-});
-
-};
-
-}
-
+      document.querySelectorAll(".answer").forEach((b) => {
+        b.disabled = true;
+      });
+    };
+  }
 });
