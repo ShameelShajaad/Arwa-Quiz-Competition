@@ -68,6 +68,10 @@ io.on("connection", (socket) => {
       team.remainingTime = 0;
     });
 
+    setTimeout(() => {
+    io.emit("showLeaderboard", game.teams);
+}, 5000);
+
     io.emit("leaderboard", game.teams);
 
     io.emit("correctAnswer", correctAnswer);

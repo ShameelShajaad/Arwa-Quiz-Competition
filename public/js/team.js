@@ -77,4 +77,36 @@ socket.on("questionChanged", (data) => {
   });
 
   document.getElementById("timer").innerHTML = "10";
+
+  document.getElementById("leaderboard").style.display="none";
+});
+
+socket.on("showLeaderboard", (teams) => {
+
+    teams.sort((a,b)=>b.score-a.score);
+
+    let html="<h2>🏆 LIVE SCORES</h2>";
+
+    teams.forEach((team,index)=>{
+
+        const medal=[
+            "🥇",
+            "🥈",
+            "🥉",
+            "4️⃣"
+        ];
+
+        html+=`
+        <div class="scoreRow">
+            ${medal[index]} Team ${team.id} - ${team.score}
+        </div>
+        `;
+
+    });
+
+    const board=document.getElementById("leaderboard");
+
+    board.innerHTML=html;
+    board.style.display="block";
+
 });
