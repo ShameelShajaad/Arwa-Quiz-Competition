@@ -1,27 +1,27 @@
-{
-  "name": "quizcompetition",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ShameelShajaad/Arwa-Quiz-Competition.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/ShameelShajaad/Arwa-Quiz-Competition/issues"
-  },
-  "homepage": "https://github.com/ShameelShajaad/Arwa-Quiz-Competition#readme",
-  "dependencies": {
-    "express": "^5.2.1",
-    "nodemon": "^3.1.14",
-    "socket.io": "^4.8.3"
+  {
+    "name": "quizcompetition",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "node server.js"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/ShameelShajaad/Arwa-Quiz-Competition.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "commonjs",
+    "bugs": {
+      "url": "https://github.com/ShameelShajaad/Arwa-Quiz-Competition/issues"
+    },
+    "homepage": "https://github.com/ShameelShajaad/Arwa-Quiz-Competition#readme",
+    "dependencies": {
+      "express": "^5.2.1",
+      "nodemon": "^3.1.14",
+      "socket.io": "^4.8.3"
+    }
   }
-}

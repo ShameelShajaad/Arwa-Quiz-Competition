@@ -1,64 +1,62 @@
 const socket = io();
 
-let team = "";
+socket.emit("joinTeam", team);
+
+const params = new URLSearchParams(window.location.search);
+
+const team = params.get("team");
+
+document.getElementById("teamName").innerHTML = "TEAM " + team;
 
 let answered = false;
 
+// ---------- TIMER ----------
 socket.on("timer", (time) => {
-  document.getElementById("timer").innerHTML = time;
 
-  document.getElementById("joinBtn").onclick = () => {
-    const selected = document.getElementById("teamSelect").value;
+    document.getElementById("timer").innerHTML = time;
 
-    if (!selected) {
-      alert("Select your team.");
-      return;
-    }
-
-    team = selected;
-
-    document.getElementById("teamName").innerHTML = "TEAM " + team;
-
-    socket.emit("joinTeam", team);
-
-    document.getElementById("joinBtn").disabled = true;
-    document.getElementById("teamSelect").disabled = true;
-  };
 });
 
+// ---------- QUESTION ----------
 socket.on("question", (q) => {
-  answered = false;
 
-  document.getElementById("question").innerHTML = q.question;
+    answered = false;
 
-  for (let i = 0; i < 4; i++) {
-    const btn = document.getElementById("a" + i);
+    document.getElementById("question").innerHTML = q.question;
 
-    btn.innerHTML = q.options[i];
+    for(let i=0;i<4;i++){
 
-    btn.disabled = false;
+        const btn=document.getElementById("a"+i);
 
-    btn.onclick = () => {
-      if (team === "") {
-        alert("Please join a team first.");
-        return;
-      }
+        btn.innerHTML=q.options[i];
 
-      if (answered) return;
+        btn.disabled=false;
 
-      answered = true;
+        btn.onclick=()=>{
 
-      btn.style.background = "#2ecc71";
+            if(team===""){
+                alert("Please join first.");
+                return;
+            }
 
-      socket.emit("answer", {
-        team: team,
-        answer: i,
-        remainingTime: Number(document.getElementById("timer").innerHTML),
-      });
+            if(answered) return;
 
-      document.querySelectorAll(".answer").forEach((b) => {
-        b.disabled = true;
-      });
-    };
-  }
+            answered=true;
+
+            socket.emit("answer",{
+
+                team,
+
+                answer:i,
+
+                remainingTime:Number(document.getElementById("timer").innerHTML)
+
+            });
+
+            document.querySelectorAll(".answer").forEach(b=>b.disabled=true);
+
+        };
+
+    }
+
 });
