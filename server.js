@@ -104,11 +104,7 @@ io.on("connection", (socket) => {
 
         game.timerRunning = false;
 
-        socket.on("timerFinished", () => {
-          document.querySelectorAll(".answer").forEach((btn) => {
-            btn.disabled = true;
-          });
-        });
+        io.emit("timerFinished");
       }
     }, 1000);
   });
@@ -129,6 +125,14 @@ io.on("connection", (socket) => {
       currentQuestion: game.currentQuestion + 1,
       totalQuestions: questions.length,
     });
+
+    if (game.currentQuestion >= questions.length - 1) {
+      game.teams.sort((a, b) => b.score - a.score);
+
+      io.emit("quizFinished", game.teams[0]);
+
+      return;
+    }
   });
 
   socket.on("timerFinished", () => {

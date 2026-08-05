@@ -65,3 +65,20 @@ socket.on("correctAnswer", (correct) => {
     document.getElementById("a"+correct).style.background = "green";
 
 });
+
+socket.on("questionChanged",(data)=>{
+
+document.getElementById("questionNo").innerHTML=
+`Question ${data.currentQuestion+1}`;
+
+document.getElementById("question").innerHTML="Waiting for Host...";
+
+document.querySelectorAll(".answer").forEach(btn=>{
+
+btn.innerHTML="";
+btn.disabled=true;
+btn.style.background="";
+
+});
+
+});

@@ -1,5 +1,5 @@
 const socket = io({
-    transports: ["websocket"]
+  transports: ["websocket"],
 });
 
 // ----------------------------
@@ -13,24 +13,25 @@ const startBtn = document.getElementById("startBtn");
 const nextBtn = document.getElementById("nextBtn");
 const revealBtn = document.getElementById("revealBtn");
 
+document.getElementById("nextBtn").disabled=true;
+
 // ----------------------------
 // TEAM STATUS
 // ----------------------------
 
 const status = {
-    A: false,
-    B: false,
-    C: false,
-    D: false
+  A: false,
+  B: false,
+  C: false,
+  D: false,
 };
 
 function updateStatus() {
+  const teamStatus = document.getElementById("teamStatus");
 
-    const teamStatus = document.getElementById("teamStatus");
+  if (!teamStatus) return;
 
-    if (!teamStatus) return;
-
-    teamStatus.innerHTML = `
+  teamStatus.innerHTML = `
 
     <div>Team A ${status.A ? "✅ Answered" : "⏳ Waiting"}</div>
 
@@ -50,21 +51,17 @@ updateStatus();
 // ----------------------------
 
 startBtn.onclick = () => {
-
-    socket.emit("startTimer");
-
+  socket.emit("startTimer");
 };
 
 nextBtn.onclick = () => {
-
-    socket.emit("nextQuestion");
-
+  socket.emit("nextQuestion");
 };
 
 revealBtn.onclick = () => {
+  socket.emit("revealAnswer");
 
-    socket.emit("revealAnswer");
-
+  document.getElementById("nextBtn").disabled=false;
 };
 
 // ----------------------------
@@ -73,68 +70,94 @@ revealBtn.onclick = () => {
 
 // Timer update
 socket.on("timer", (time) => {
-
-    timer.innerHTML = time;
-
+  timer.innerHTML = time;
 });
 
 // Timer finished
 socket.on("timerFinished", () => {
-
-    timer.innerHTML = "TIME UP!";
-
+  timer.innerHTML = "TIME UP!";
 });
 
 // Team answered
 socket.on("teamAnswered", (data) => {
+  status[data.team] = true;
 
-    status[data.team] = true;
-
-    updateStatus();
-
+  updateStatus();
 });
 
 // Next Question
 socket.on("questionChanged", (data) => {
+  document.getElementById("questionNo").innerHTML =
+    `Question ${data.currentQuestion + 1} / ${data.totalQuestions}`;
 
-    questionNo.innerHTML = `Question ${data.currentQuestion + 1}`;
+  status.A = false;
+  status.B = false;
+  status.C = false;
+  status.D = false;
 
-    status.A = false;
-    status.B = false;
-    status.C = false;
-    status.D = false;
-
-    updateStatus();
-
+  updateStatus();
 });
 
 // Leaderboard received
 socket.on("leaderboard", (teams) => {
+  console.log("Leaderboard Updated");
 
-    console.log("Leaderboard Updated");
-
-    console.table(teams);
-
+  console.table(teams);
 });
 
 // Current state (when host refreshes)
 socket.on("state", (game) => {
+  timer.innerHTML = game.timer;
 
-    timer.innerHTML = game.timer;
-
-    questionNo.innerHTML = `Question ${game.currentQuestion + 1}`;
-
+  questionNo.innerHTML = `Question ${game.currentQuestion + 1}`;
 });
 
 // Connection
 socket.on("connect", () => {
-
-    console.log("Host Connected");
-
+  console.log("Host Connected");
 });
 
 socket.on("disconnect", () => {
+  console.log("Host Disconnected");
+});
 
-    console.log("Host Disconnected");
+socket.on("correctAnswer",(answer)=>{
+
+document.getElementById("correctAnswer").innerHTML=
+"Correct Answer : "+(answer+1);
+
+});
+
+socket.on("leaderboard",(teams)=>{
+
+teams.sort((a,b)=>b.score-a.score);
+
+let html="";
+
+teams.forEach(team=>{
+
+html+=`
+<div>
+Team ${team.id} - ${team.score}
+</div>
+`;
+
+});
+
+document.getElementById("miniLeaderboard").innerHTML=html;
+
+});
+
+document.getElementById("startBtn").disabled=true;
+
+socket.on("timerFinished",()=>{
+
+document.getElementById("startBtn").disabled=false;
+
+});
+
+socket.on("questionChanged",()=>{
+
+document.getElementById("nextBtn").disabled=true;
 
 });

@@ -1,0 +1,18 @@
+<h1>🏆 WINNER</h1>
+
+<h2 id="winner"></h2>
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+
+const socket=io();
+
+socket.on("quizFinished",(winner)=>{
+
+document.getElementById("winner").innerHTML=
+`TEAM ${winner.id}<br>${winner.score} Points`;
+
+});
+
+</script>
