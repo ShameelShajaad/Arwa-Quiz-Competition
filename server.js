@@ -8,25 +8,23 @@ const game = require("./game/gameState");
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
-    transports: ["websocket"]
+  transports: ["websocket"],
 });
 
 app.use(express.static("public"));
 
-
 io.on("connection", (socket) => {
-
   console.log(
     "Client Connected:",
     socket.id,
-    socket.handshake.headers["user-agent"]
-);
+    socket.handshake.headers["user-agent"],
+  );
 
   console.log("Client Connected");
 
   socket.on("disconnect", (reason) => {
     console.log("Disconnected:", socket.id, reason);
-});
+  });
 
   socket.on("joinTeam", (team) => {
     socket.team = team;
@@ -41,13 +39,16 @@ io.on("connection", (socket) => {
 
     team.answer = data.answer;
 
+    io.emit("teamAnswered", {
+      team: data.team,
+    });
+
     team.remainingTime = data.remainingTime;
 
     console.log(team);
   });
 
   socket.on("revealAnswer", () => {
-
     console.log("Reveal button pressed");
 
     const correctAnswer = questions[game.currentQuestion].answer;
@@ -105,32 +106,24 @@ io.on("connection", (socket) => {
       }
     }, 1000);
   });
-});
-
-socket.on("nextQuestion", () => {
-
-    if(game.currentQuestion >= questions.length - 1){
-
-        io.emit("quizFinished");
-
-        return;
-
+  socket.on("nextQuestion", () => {
+    if (game.currentQuestion >= questions.length - 1) {
+      io.emit("quizFinished");
+      return;
     }
 
     game.currentQuestion++;
 
-    game.teams.forEach(team=>{
-
-        team.answer = null;
-        team.remainingTime = 0;
-
+    game.teams.forEach((team) => {
+      team.answer = null;
+      team.remainingTime = 0;
     });
 
-    io.emit("questionChanged",{
-        currentQuestion: game.currentQuestion + 1,
-        totalQuestions: questions.length
+    io.emit("questionChanged", {
+      currentQuestion: game.currentQuestion + 1,
+      totalQuestions: questions.length,
     });
-
+  });
 });
 
 const PORT = 3000;

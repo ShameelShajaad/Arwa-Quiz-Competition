@@ -22,5 +22,17 @@
         ],
         "answer": 1,
         "time": 10
+    },
+    {
+        "id": 2,
+        "question": "Which Companion was appointed by the Prophet ﷺ to write down the terms of the Treaty of Hudaybiyyah?",
+        "options": [
+            "Ubayy ibn Ka'b (RA)",
+            "Zayd ibn Thabit (RA)",
+            "Ali ibn Abi Talib (RA)",
+            "Mu'awiyah ibn Abi Sufyan (RA)"
+        ],
+        "answer": 2,
+        "time": 10
     }
 ]
