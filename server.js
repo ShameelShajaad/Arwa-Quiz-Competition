@@ -21,11 +21,15 @@ io.on("connection", (socket) => {
   });
 
   socket.on("answer", (data) => {
-    console.log("================================");
-    console.log("TEAM:", data.team);
-    console.log("ANSWER:", data.answer);
-    console.log("TIME LEFT:", data.remainingTime);
-    console.log("================================");
+    const team = game.teams.find((t) => t.id === data.team);
+
+    if (!team) return;
+
+    team.answer = data.answer;
+
+    team.remainingTime = data.remainingTime;
+
+    console.log(team);
   });
 
   // Send current state immediately

@@ -1,18 +1,18 @@
 const gameState = {
-    currentQuestion: 0,
-    timer: 10,
-    timerRunning: false,
+  currentQuestion: 0,
+  timer: 10,
+  timerRunning: false,
 
-    teams: [
-        { id: "A", name: "Team A", score: 0 },
-        { id: "B", name: "Team B", score: 0 },
-        { id: "C", name: "Team C", score: 0 },
-        { id: "D", name: "Team D", score: 0 }
-    ],
+  teams: [
+    { id: "A", score: 0, answer: null },
+    { id: "B", score: 0, answer: null },
+    { id: "C", score: 0, answer: null },
+    { id: "D", score: 0, answer: null },
+  ],
 
-    questions: [],
+  questions: [],
 
-    interval: null
+  interval: null,
 };
 
 module.exports = gameState;
