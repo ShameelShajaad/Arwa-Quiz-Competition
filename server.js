@@ -7,12 +7,26 @@ const game = require("./game/gameState");
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+    transports: ["websocket"]
+});
 
 app.use(express.static("public"));
 
+
 io.on("connection", (socket) => {
+
+  console.log(
+    "Client Connected:",
+    socket.id,
+    socket.handshake.headers["user-agent"]
+);
+
   console.log("Client Connected");
+
+  socket.on("disconnect", (reason) => {
+    console.log("Disconnected:", socket.id, reason);
+});
 
   socket.on("joinTeam", (team) => {
     socket.team = team;
@@ -33,14 +47,24 @@ io.on("connection", (socket) => {
   });
 
   socket.on("revealAnswer", () => {
-    const correct = questions[game.currentQuestion].answer;
+
+    console.log("Reveal button pressed");
+
+    const correctAnswer = questions[game.currentQuestion].answer;
 
     game.teams.forEach((team) => {
-      if (team.answer === correct) {
-        team.score += 500 + team.remainingTime * 50;
+      if (team.answer === correctAnswer) {
+        const points = 500 + team.remainingTime * 50;
+
+        team.score += points;
+
+        console.log(`✅ Team ${team.id} +${points}`);
+      } else {
+        console.log(`❌ Team ${team.id} Wrong`);
       }
 
       team.answer = null;
+      team.remainingTime = 0;
     });
 
     io.emit("leaderboard", game.teams);

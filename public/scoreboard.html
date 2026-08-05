@@ -9,13 +9,32 @@
 
 <link rel="stylesheet" href="css/style.css">
 
+<style>
+
+body{
+font-family:Arial;
+background:#111;
+color:white;
+text-align:center;
+}
+
+.team{
+margin:20px auto;
+padding:20px;
+width:400px;
+background:#222;
+border-radius:15px;
+font-size:30px;
+transition:.4s;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<h1>
-LIVE LEADERBOARD
-</h1>
+<h1>🏆 LIVE LEADERBOARD</h1>
 
 <div id="scores"></div>
 
@@ -23,17 +42,24 @@ LIVE LEADERBOARD
 
 <script>
 
-const socket=io();
+const socket = io({
+    transports: ["websocket"]
+});
 
 socket.on("leaderboard",(teams)=>{
 
-let html="";
-
 teams.sort((a,b)=>b.score-a.score);
 
-teams.forEach(t=>{
+let html="";
 
-html+=`<h2>${t.id} : ${t.score}</h2>`;
+teams.forEach((team,index)=>{
+
+html += `
+<div class="team">
+${index+1}. Team ${team.id}<br>
+${team.score} Points
+</div>
+`;
 
 });
 
