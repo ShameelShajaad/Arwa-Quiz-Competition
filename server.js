@@ -107,6 +107,32 @@ io.on("connection", (socket) => {
   });
 });
 
+socket.on("nextQuestion", () => {
+
+    if(game.currentQuestion >= questions.length - 1){
+
+        io.emit("quizFinished");
+
+        return;
+
+    }
+
+    game.currentQuestion++;
+
+    game.teams.forEach(team=>{
+
+        team.answer = null;
+        team.remainingTime = 0;
+
+    });
+
+    io.emit("questionChanged",{
+        currentQuestion: game.currentQuestion + 1,
+        totalQuestions: questions.length
+    });
+
+});
+
 const PORT = 3000;
 
 server.listen(PORT, () => {
