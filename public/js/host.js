@@ -13,7 +13,7 @@ const startBtn = document.getElementById("startBtn");
 const nextBtn = document.getElementById("nextBtn");
 const revealBtn = document.getElementById("revealBtn");
 
-document.getElementById("nextBtn").disabled=true;
+document.getElementById("nextBtn").disabled = true;
 
 // ----------------------------
 // TEAM STATUS
@@ -52,6 +52,9 @@ updateStatus();
 
 startBtn.onclick = () => {
   socket.emit("startTimer");
+
+  startBtn.disabled = true;
+  nextBtn.disabled = true;
 };
 
 nextBtn.onclick = () => {
@@ -61,7 +64,7 @@ nextBtn.onclick = () => {
 revealBtn.onclick = () => {
   socket.emit("revealAnswer");
 
-  document.getElementById("nextBtn").disabled=false;
+  document.getElementById("nextBtn").disabled = false;
 };
 
 // ----------------------------
@@ -75,7 +78,8 @@ socket.on("timer", (time) => {
 
 // Timer finished
 socket.on("timerFinished", () => {
-  timer.innerHTML = "TIME UP!";
+    timer.innerHTML = "TIME UP!";
+    revealBtn.disabled = false;
 });
 
 // Team answered
@@ -98,13 +102,6 @@ socket.on("questionChanged", (data) => {
   updateStatus();
 });
 
-// Leaderboard received
-socket.on("leaderboard", (teams) => {
-  console.log("Leaderboard Updated");
-
-  console.table(teams);
-});
-
 // Current state (when host refreshes)
 socket.on("state", (game) => {
   timer.innerHTML = game.timer;
@@ -121,43 +118,34 @@ socket.on("disconnect", () => {
   console.log("Host Disconnected");
 });
 
-socket.on("correctAnswer",(answer)=>{
-
-document.getElementById("correctAnswer").innerHTML=
-"Correct Answer : "+(answer+1);
-
+socket.on("correctAnswer", (answer) => {
+  document.getElementById("correctAnswer").innerHTML =
+    "Correct Answer : " + (answer + 1);
 });
 
-socket.on("leaderboard",(teams)=>{
+socket.on("leaderboard", (teams) => {
+  teams.sort((a, b) => b.score - a.score);
 
-teams.sort((a,b)=>b.score-a.score);
+  let html = "";
 
-let html="";
-
-teams.forEach(team=>{
-
-html+=`
+  teams.forEach((team) => {
+    html += `
 <div>
 Team ${team.id} - ${team.score}
 </div>
 `;
+  });
 
+  document.getElementById("miniLeaderboard").innerHTML = html;
 });
 
-document.getElementById("miniLeaderboard").innerHTML=html;
-
+socket.on("timerFinished", () => {
+  document.getElementById("startBtn").disabled = false;
 });
 
-document.getElementById("startBtn").disabled=true;
-
-socket.on("timerFinished",()=>{
-
-document.getElementById("startBtn").disabled=false;
-
+socket.on("questionChanged", () => {
+  document.getElementById("nextBtn").disabled = true;
 });
 
-socket.on("questionChanged",()=>{
-
-document.getElementById("nextBtn").disabled=true;
-
-});
+startBtn.disabled = false;
+revealBtn.disabled = true;

@@ -1,5 +1,5 @@
 const socket = io({
-    transports: ["websocket"]
+  transports: ["websocket"],
 });
 
 const params = new URLSearchParams(window.location.search);
@@ -56,29 +56,25 @@ socket.on("question", (q) => {
 });
 
 socket.on("correctAnswer", (correct) => {
+  document.querySelectorAll(".answer").forEach((btn) => {
+    btn.disabled = true;
+    btn.style.background = "";
+  });
 
-    document.querySelectorAll(".answer").forEach(btn=>{
-        btn.disabled = true;
-        btn.style.background = "";
-    });
-
-    document.getElementById("a"+correct).style.background = "green";
-
+  document.getElementById("a" + correct).style.background = "green";
 });
 
-socket.on("questionChanged",(data)=>{
+socket.on("questionChanged", (data) => {
+  document.getElementById("questionNo").innerHTML =
+    `Question ${data.currentQuestion + 1}`;
 
-document.getElementById("questionNo").innerHTML=
-`Question ${data.currentQuestion+1}`;
+  document.getElementById("question").innerHTML = "Waiting for Host...";
 
-document.getElementById("question").innerHTML="Waiting for Host...";
+  document.querySelectorAll(".answer").forEach((btn) => {
+    btn.innerHTML = "";
+    btn.disabled = true;
+    btn.style.background = "";
+  });
 
-document.querySelectorAll(".answer").forEach(btn=>{
-
-btn.innerHTML="";
-btn.disabled=true;
-btn.style.background="";
-
-});
-
+  document.getElementById("timer").innerHTML = "10";
 });

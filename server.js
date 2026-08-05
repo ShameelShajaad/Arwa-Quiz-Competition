@@ -101,9 +101,10 @@ io.on("connection", (socket) => {
 
       if (game.timer <= 0) {
         clearInterval(game.interval);
-
         game.timerRunning = false;
+        game.timer = 0;
 
+        io.emit("timer", 0);
         io.emit("timerFinished");
       }
     }, 1000);
@@ -122,23 +123,18 @@ io.on("connection", (socket) => {
     });
 
     io.emit("questionChanged", {
-      currentQuestion: game.currentQuestion + 1,
+      currentQuestion: game.currentQuestion,
       totalQuestions: questions.length,
     });
 
+    game.timer = 10;
+    io.emit("timer", 10);
+
     if (game.currentQuestion >= questions.length - 1) {
       game.teams.sort((a, b) => b.score - a.score);
-
       io.emit("quizFinished", game.teams[0]);
-
       return;
     }
-  });
-
-  socket.on("timerFinished", () => {
-    document
-      .querySelectorAll(".answer")
-      .forEach((btn) => (btn.disabled = true));
   });
 });
 
