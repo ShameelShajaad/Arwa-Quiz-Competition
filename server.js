@@ -69,6 +69,8 @@ io.on("connection", (socket) => {
     });
 
     io.emit("leaderboard", game.teams);
+
+    io.emit("correctAnswer", correctAnswer);
   });
 
   // Send current state immediately
@@ -102,7 +104,11 @@ io.on("connection", (socket) => {
 
         game.timerRunning = false;
 
-        io.emit("timerFinished");
+        socket.on("timerFinished", () => {
+          document.querySelectorAll(".answer").forEach((btn) => {
+            btn.disabled = true;
+          });
+        });
       }
     }, 1000);
   });
@@ -123,6 +129,12 @@ io.on("connection", (socket) => {
       currentQuestion: game.currentQuestion + 1,
       totalQuestions: questions.length,
     });
+  });
+
+  socket.on("timerFinished", () => {
+    document
+      .querySelectorAll(".answer")
+      .forEach((btn) => (btn.disabled = true));
   });
 });
 

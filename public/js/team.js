@@ -54,3 +54,14 @@ socket.on("question", (q) => {
     };
   }
 });
+
+socket.on("correctAnswer", (correct) => {
+
+    document.querySelectorAll(".answer").forEach(btn=>{
+        btn.disabled = true;
+        btn.style.background = "";
+    });
+
+    document.getElementById("a"+correct).style.background = "green";
+
+});
