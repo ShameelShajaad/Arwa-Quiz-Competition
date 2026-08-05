@@ -1,62 +1,54 @@
 const socket = io();
 
-socket.emit("joinTeam", team);
-
 const params = new URLSearchParams(window.location.search);
-
 const team = params.get("team");
 
 document.getElementById("teamName").innerHTML = "TEAM " + team;
+
+socket.emit("joinTeam", team);
 
 let answered = false;
 
 // ---------- TIMER ----------
 socket.on("timer", (time) => {
-
-    document.getElementById("timer").innerHTML = time;
-
+  document.getElementById("timer").innerHTML = time;
 });
 
 // ---------- QUESTION ----------
 socket.on("question", (q) => {
+  console.log("QUESTION RECEIVED");
+  console.log(q);
 
-    answered = false;
+  answered = false;
 
-    document.getElementById("question").innerHTML = q.question;
+  document.getElementById("question").innerHTML = q.question;
 
-    for(let i=0;i<4;i++){
+  for (let i = 0; i < 4; i++) {
+    const btn = document.getElementById("a" + i);
 
-        const btn=document.getElementById("a"+i);
+    btn.innerHTML = q.options[i];
 
-        btn.innerHTML=q.options[i];
+    btn.disabled = false;
 
-        btn.disabled=false;
+    btn.onclick = () => {
+      if (team === "") {
+        alert("Please join first.");
+        return;
+      }
 
-        btn.onclick=()=>{
+      if (answered) return;
 
-            if(team===""){
-                alert("Please join first.");
-                return;
-            }
+      answered = true;
 
-            if(answered) return;
+      socket.emit("answer", {
+        team,
 
-            answered=true;
+        answer: i,
 
-            socket.emit("answer",{
+        remainingTime: Number(document.getElementById("timer").innerHTML),
+      });
 
-                team,
-
-                answer:i,
-
-                remainingTime:Number(document.getElementById("timer").innerHTML)
-
-            });
-
-            document.querySelectorAll(".answer").forEach(b=>b.disabled=true);
-
-        };
-
-    }
-
+      document.querySelectorAll(".answer").forEach((b) => (b.disabled = true));
+    };
+  }
 });

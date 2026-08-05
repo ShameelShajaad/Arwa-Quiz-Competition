@@ -33,24 +33,18 @@ io.on("connection", (socket) => {
   });
 
   socket.on("revealAnswer", () => {
-
     const correct = questions[game.currentQuestion].answer;
 
-    game.teams.forEach(team => {
+    game.teams.forEach((team) => {
+      if (team.answer === correct) {
+        team.score += 500 + team.remainingTime * 50;
+      }
 
-        if (team.answer === correct) {
-
-            team.score += 500 + (team.remainingTime * 50);
-
-        }
-
-        team.answer = null;
-
+      team.answer = null;
     });
 
     io.emit("leaderboard", game.teams);
-
-});
+  });
 
   // Send current state immediately
   socket.emit("state", {
@@ -62,6 +56,9 @@ io.on("connection", (socket) => {
 
   socket.on("startTimer", () => {
     if (game.timerRunning) return;
+
+    console.log("Sending question...");
+    console.log(questions[game.currentQuestion]);
 
     io.emit("question", questions[game.currentQuestion]);
 

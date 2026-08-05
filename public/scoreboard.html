@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
 <meta charset="UTF-8">
 
-<title>Scoreboard</title>
+<title>Leaderboard</title>
 
 <link rel="stylesheet" href="css/style.css">
 
@@ -12,13 +13,36 @@
 
 <body>
 
-<div class="card">
+<h1>
+LIVE LEADERBOARD
+</h1>
 
-<h1>LIVE SCOREBOARD</h1>
+<div id="scores"></div>
 
-<p>Coming next...</p>
+<script src="/socket.io/socket.io.js"></script>
 
-</div>
+<script>
+
+const socket=io();
+
+socket.on("leaderboard",(teams)=>{
+
+let html="";
+
+teams.sort((a,b)=>b.score-a.score);
+
+teams.forEach(t=>{
+
+html+=`<h2>${t.id} : ${t.score}</h2>`;
+
+});
+
+document.getElementById("scores").innerHTML=html;
+
+});
+
+</script>
 
 </body>
+
 </html>
