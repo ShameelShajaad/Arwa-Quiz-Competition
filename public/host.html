@@ -1,62 +1,48 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<meta charset="UTF-8">
+    <title>Host Dashboard</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
 
-<title>Host Dashboard</title>
+  <body>
+    <div class="card">
+      <h1>HOST DASHBOARD</h1>
 
-<link rel="stylesheet" href="css/style.css">
+      <br />
 
-</head>
+      <h2 id="questionNo">Question 1 / 20</h2>
 
-<body>
+      <br />
 
-<div class="card">
+      <h2 id="timer">10</h2>
 
-<h1>HOST DASHBOARD</h1>
+      <br />
 
-<br>
+      <div class="buttons">
+        <button id="startBtn">START</button>
 
-<h2 id="questionNo">
-Question 1 / 20
-</h2>
+        <button id="nextBtn">NEXT</button>
+      </div>
 
-<br>
+      <br />
 
-<h2 id="timer">
-10
-</h2>
+      <div class="buttons">
+        <button id="correctBtn">CORRECT</button>
 
-<br>
+        <button id="wrongBtn">WRONG</button>
 
-<div class="buttons">
+        <button id="revealBtn">Reveal Answer</button>
+      </div>
+    </div>
 
-<button id="startBtn">START</button>
+    <script src="/socket.io/socket.io.js"></script>
 
-<button id="nextBtn">NEXT</button>
-
-</div>
-
-<br>
-
-<div class="buttons">
-
-<button id="correctBtn">CORRECT</button>
-
-<button id="wrongBtn">WRONG</button>
-
-</div>
-
-</div>
-
-<script src="/socket.io/socket.io.js"></script>
-
-<script src="js/host.js"></script>
-
-</body>
-
+    <script src="js/host.js"></script>
+  </body>
 </html>

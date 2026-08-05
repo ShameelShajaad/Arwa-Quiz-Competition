@@ -32,6 +32,26 @@ io.on("connection", (socket) => {
     console.log(team);
   });
 
+  socket.on("revealAnswer", () => {
+
+    const correct = questions[game.currentQuestion].answer;
+
+    game.teams.forEach(team => {
+
+        if (team.answer === correct) {
+
+            team.score += 500 + (team.remainingTime * 50);
+
+        }
+
+        team.answer = null;
+
+    });
+
+    io.emit("leaderboard", game.teams);
+
+});
+
   // Send current state immediately
   socket.emit("state", {
     currentQuestion: game.currentQuestion,

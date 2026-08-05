@@ -11,3 +11,9 @@ socket.on("timer", (time) => {
     document.getElementById("timer").innerHTML = time;
 
 });
+
+document.getElementById("revealBtn").onclick=()=>{
+
+socket.emit("revealAnswer");
+
+};
