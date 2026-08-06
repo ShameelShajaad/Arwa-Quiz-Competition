@@ -15,4 +15,25 @@ document.getElementById("winner").innerHTML=
 
 });
 
+socket.on("quizFinished",(winner)=>{
+
+document.getElementById("winner").innerHTML=`
+🏆 TEAM ${winner.id}
+<br>
+${winner.score} Points
+`;
+
+confetti({
+
+particleCount:300,
+spread:180,
+origin:{y:.6}
+
+});
+
+});
+
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@hiseb/confetti@2.2.0/dist/confetti.min.js"></script>
+

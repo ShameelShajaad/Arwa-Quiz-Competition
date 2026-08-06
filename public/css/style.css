@@ -117,3 +117,52 @@ button:hover{
     transform:translateY(-5px);
 
 }
+.scoreRow{
+
+padding:15px;
+margin:10px;
+
+background:#ffffff15;
+
+border-radius:12px;
+
+font-size:26px;
+
+animation:slide .6s;
+
+}
+
+@keyframes slide{
+
+from{
+
+opacity:0;
+transform:translateY(25px);
+
+}
+
+to{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+}
+#timer{
+
+font-size:120px;
+
+font-weight:bold;
+
+color:#FFD700;
+
+text-shadow:0 0 20px gold;
+
+}
+@keyframes pop{
+
+0%{transform:scale(.6);}
+100%{transform:scale(1);}
+
+}

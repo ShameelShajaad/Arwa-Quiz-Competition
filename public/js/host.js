@@ -13,6 +13,8 @@ const startBtn = document.getElementById("startBtn");
 const nextBtn = document.getElementById("nextBtn");
 const revealBtn = document.getElementById("revealBtn");
 
+const clickSound=document.getElementById("clickSound");
+
 document.getElementById("nextBtn").disabled = true;
 
 // ----------------------------
