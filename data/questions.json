@@ -68,7 +68,7 @@
             "Indonesia",
             "Bangladesh"
         ],
-        "answer": 1,
+        "answer": 2,
         "time": 10
     },
     {
@@ -181,14 +181,1022 @@
     },
     {
         "id": 16,
-        "question": "W",
+        "question": "Which country hosts the annual King Abdulaziz International Qur'an Competition?",
         "options": [
-            "B",
-            "B",
-            "B",
-            "B"
+            "Qatar",
+            "United Arab Emirates",
+            "Saudi Arabia",
+            "Kuwait"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 17,
+        "question": "Which city is known as Umm al-Qura?",
+        "options": [
+            "Madinah",
+            "Jerusalem",
+            "Taif",
+            "Makkah"
+        ],
+        "answer": 3,
+        "time": 10
+    },
+    {
+        "id": 18,
+        "question": "Which Surah explicitly mentions the Battle of Badr?",
+        "options": [
+            "Surah Aal 'Imran",
+            "Surah Al-Anfal",
+            "Surah At-Tawbah",
+            "Surah Muhammad"
         ],
         "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 19,
+        "question": "Which country has the highest number of UNESCO World Heritage Sites in the Muslim world?",
+        "options": [
+            "Iran",
+            "Saudi Arabia",
+            "Türkiye",
+            "Uzbekistan"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 20,
+        "question": "Which city is historically known as Madinat as-Salam (City of Peace)?",
+        "options": [
+            "Damascus",
+            "Cairo",
+            "Baghdad",
+            "Jerusalem"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 21,
+        "question": "Which river is historically associated with the Battle of Qadisiyyah?",
+        "options": [
+            "Tigris",
+            "Euphrates",
+            "Nile",
+            "Jordan"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 22,
+        "question": "Which country lies on the northern coast of the Strait of Hormuz?",
+        "options": [
+            "Saudi Arabia",
+            "United Arab Emirates",
+            "Oman",
+            "Iran"
+        ],
+        "answer": 3,
+        "time": 10
+    },
+    {
+        "id": 23,
+        "question": "Which battle resulted in the martyrdom of Hamzah ibn Abdul Muttalib (RA)?",
+        "options": [
+            "Battle of Badr",
+            "Battle of Khandaq",
+            "Battle of Hunayn",
+            "Battle of Uhud"
+        ],
+        "answer": 3,
+        "time": 10
+    },
+    {
+        "id": 24,
+        "question": "Which mosque is known as the \"Second Qibla\"?",
+        "options": [
+            "Masjid Quba",
+            "Masjid al-Qiblatayn",
+            "Masjid al-Jumu'ah",
+            "Masjid al-Khayf"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 25,
+        "question": "Which of the Mothers of the Believers was the last to pass away?",
+        "options": [
+            "Aishah (RA)",
+            "Hafsah (RA)",
+            "Umm Salamah (RA)",
+            "Maymunah bint al-Harith (RA)"
+        ],
+        "answer": 3,
+        "time": 10
+    },
+    {
+        "id": 26,
+        "question": "Which false prophet was decisively defeated during the caliphate of Abu Bakr (RA)?",
+        "options": [
+            "Tulayhah ibn Khuwaylid",
+            "Al-Aswad al-Ansi",
+            "Musaylimah al-Kadhdhab",
+            "Sajah bint al-Harith"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 27,
+        "question": "Which Companion was appointed by Abu Bakr (RA) to supervise the first compilation of the Qur'an?",
+        "options": [
+            "Ubayy ibn Ka'b (RA)",
+            "Abdullah ibn Mas'ud (RA)",
+            "Thabit ibn Qays (RA)",
+            "Zayd ibn Thabit (RA)"
+        ],
+        "answer": 3,
+        "time": 10
+    },
+    {
+        "id": 28,
+        "question": "During whose caliphate was the Hijri calendar officially introduced?",
+        "options": [
+            "Abu Bakr (RA)",
+            "Umar ibn al-Khattab (RA)",
+            "Uthman ibn Affan (RA)",
+            "Ali ibn Abi Talib (RA)"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 29,
+        "question": "Which Companion was appointed by Abu Bakr (RA) to lead the Muslim army after the Battle of Yamamah?",
+        "options": [
+            "Amr ibn al-As (RA)",
+            "Sa'd ibn Abi Waqqas (RA)",
+            "Abu Ubaydah ibn al-Jarrah (RA)",
+            "Khalid ibn al-Walid (RA)"
+        ],
+        "answer": 3,
+        "time": 10
+    },
+    {
+        "id": 30,
+        "question": "Which Companion was appointed as the first governor of Jerusalem after its peaceful surrender during the caliphate of Umar ibn al-Khattab (RA)?",
+        "options": [
+            "Khalid ibn al-Walid (RA)",
+            "Ubadah ibn al-Samit (RA)",
+            "Amr ibn al-As (RA)",
+            "Sa'd ibn Abi Waqqas (RA)"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 31,
+        "question": "Who suggested digging the trench during the Battle of Khandaq?",
+        "options": [
+            "Hudhayfah ibn al-Yaman (RA)",
+            "Salman al-Farisi (RA)",
+            "Sa'd ibn Mu'adh (RA)",
+            "Ammar ibn Yasir (RA)"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 32,
+        "question": "Which Imam authored Al-Muwatta?",
+        "options": [
+            "Imam Malik",
+            "Imam Ahmad ibn Hanbal",
+            "Imam Muslim",
+            "Imam Abu Dawud"
+        ],
+        "answer": 0,
+        "time": 10
+    },
+    {
+        "id": 33,
+        "question": "Which Surah contains the description of the stages of embryonic development?",
+        "options": [
+            "Surah Al-Mulk",
+            "Surah Al-Mu'minun",
+            "Surah Al-Qalam",
+            "Surah Al-Waqi'ah"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 34,
+        "question": "Who accepted Islam immediately after hearing the recitation of Surah Taha?",
+        "options": [
+            "Abu Sufyan (RA)",
+            "Umar ibn al-Khattab (RA)",
+            "Khalid ibn al-Walid (RA)",
+            "Amr ibn al-As (RA)"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 35,
+        "question": "Which Companion was known as \"The Keeper of the Prophet's Secrets\"?",
+        "options": [
+            "Bilal ibn Rabah (RA)",
+            "Hudhayfah ibn al-Yaman (RA)",
+            "Talhah ibn Ubaydullah (RA)",
+            "Abu Hurairah (RA)"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 36,
+        "question": "Which wife of the Prophet ﷺ was the daughter of Abu Sufyan?",
+        "options": [
+            "Hafsah bint Umar (RA)",
+            "Juwayriyyah bint al-Harith (RA)",
+            "Umm Habibah (Ramlah bint Abi Sufyan) (RA)",
+            "Safiyyah bint Huyayy (RA)"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 37,
+        "question": "Which battle marked the first military setback for the Muslims?",
+        "options": [
+            "Battle of Badr",
+            "Battle of Uhud",
+            "Battle of Khandaq",
+            "Battle of Khaybar"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 38,
+        "question": "Which Surah begins with an oath by the dawn?",
+        "options": [
+            "Surah Al-Fajr",
+            "Surah Ash-Shams",
+            "Surah Ad-Duha",
+            "Surah Al-Layl"
+        ],
+        "answer": 0,
+        "time": 10
+    },
+    {
+        "id": 39,
+        "question": "Which Surah contains the greatest number of stories of the Prophets?",
+        "options": [
+            "Surah Al-Baqarah",
+            "Surah Al-A'raf",
+            "Surah Al-Balad",
+            "Surah Al-Kahf"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 40,
+        "question": "Which Arab traveller is widely credited with documenting the presence of Muslims in Sri Lanka during the 10th century?",
+        "options": [
+            "Ibn Battutah",
+            "Al-Masudi",
+            "Al-Idrisi",
+            "Ibn Jubayr"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 41,
+        "question": "Which Sri Lankan mosque is traditionally associated with the burial site of a Companion of the Prophet ﷺ according to local tradition?",
+        "options": [
+            "Grand Mosque, Colombo",
+            "Dewatagaha Mosque",
+            "Red Masjid, Beruwala",
+            "Kechimalai Mosque"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 42,
+        "question": "Which town is regarded as one of the earliest Muslim settlements in Sri Lanka?",
+        "options": [
+            "Kalmunai",
+            "Beruwala",
+            "Warakapola",
+            "Nawalapitiya"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 43,
+        "question": "Which Companion was appointed by the Prophet ﷺ to write down the terms of the Treaty of Hudaybiyyah?",
+        "options": [
+            "Ubayy ibn Ka'b (RA)",
+            "Zayd ibn Thabit (RA)",
+            "Ali ibn Abi Talib (RA)",
+            "Mu'awiyah ibn Abi Sufyan (RA)"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 44,
+        "question": "Which Companion was appointed by the Prophet ﷺ as the governor of Makkah after its conquest?",
+        "options": [
+            "Mu'adh ibn Jabal (RA)",
+            "Attab ibn Asid (RA)",
+            "Khalid ibn al-Walid (RA)",
+            "Abu Ubaydah ibn al-Jarrah (RA)"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 45,
+        "question": "Which Companion was the first ambassador sent by the Prophet ﷺ to Madinah before the Hijrah?",
+        "options": [
+            "Mu'adh ibn Jabal (RA)",
+            "Abdullah ibn Mas'ud (RA)",
+            "Mus'ab ibn Umayr (RA)",
+            "Zayd ibn Harithah (RA)"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 46,
+        "question": "Which idol was primarily worshipped by the Quraysh inside the Ka'bah?",
+        "options": [
+            "Manat",
+            "Al-Lat",
+            "Al-Uzza",
+            "Hubal"
+        ],
+        "answer": 3,
+        "time": 10
+    },
+    {
+        "id": 47,
+        "question": "Which Companion was known by the title \"Dhun-Nurayn\" (The Possessor of Two Lights)?",
+        "options": [
+            "Ali ibn Abi Talib (RA)",
+            "Umar ibn al-Khattab (RA)",
+            "Abu Bakr as-Siddiq (RA)",
+            "Uthman ibn Affan (RA)"
+        ],
+        "answer": 3,
+        "time": 10
+    },
+    {
+        "id": 48,
+        "question": "Which Companion was appointed by the Prophet ﷺ to teach Islam in Yemen?",
+        "options": [
+            "Abdullah ibn Mas'ud (RA)",
+            "Abu Musa al-Ash'ari (RA)",
+            "Mu'adh ibn Jabal (RA)",
+            "Ubayy ibn Ka'b (RA)"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 49,
+        "question": "Which Surah contains the story of Luqman and his advice to his son?",
+        "options": [
+            "Surah Yusuf",
+            "Surah Luqman",
+            "Surah Maryam",
+            "Surah Al-Kahf"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 50,
+        "question": "Which Companion was the first to unsheathe his sword in the cause of Islam?",
+        "options": [
+            "Khalid ibn al-Walid (RA)",
+            "Ali ibn Abi Talib (RA)",
+            "Az-Zubayr ibn al-Awwam (RA)",
+            "Talhah ibn Ubaydullah (RA)"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 51,
+        "question": "Which wife of the Prophet ﷺ was freed from captivity and later married by him after the Battle of Khaybar?",
+        "options": [
+            "Juwayriyyah bint al-Harith (RA)",
+            "Safiyyah bint Huyayy (RA)",
+            "Umm Habibah (RA)",
+            "Sawdah bint Zam'ah (RA)"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 52,
+        "question": "Which Companion embraced Islam through the efforts of Abu Bakr (RA)?",
+        "options": [
+            "Uthman ibn Affan (RA)",
+            "Abu Talib",
+            "Abu Lahab",
+            "Abdullah ibn Ubayy"
+        ],
+        "answer": 0,
+        "time": 10
+    },
+    {
+        "id": 53,
+        "question": "Which Surah is named after a metal?",
+        "options": [
+            "Surah Al-Hadid",
+            "Surah Al-Qalam",
+            "Surah Al-Furqan",
+            "Surah Al-Hijr"
+        ],
+        "answer": 0,
+        "time": 10
+    },
+    {
+        "id": 54,
+        "question": "Which Companion was known as the \"Trustworthy One of this Ummah\" (Ameen al-Ummah)?",
+        "options": [
+            "Sa'd ibn Abi Waqqas (RA)",
+            "Bilal ibn Rabah (RA)",
+            "Abu Ubaydah ibn al-Jarrah (RA)",
+            "Salman al-Farisi (RA)"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 55,
+        "question": "Which Companion was martyred while reciting the Qur'an during the Battle of Yamamah?",
+        "options": [
+            "Mus'ab ibn Umayr (RA)",
+            "Salim Mawla Abi Hudhayfah (RA)",
+            "Abu Darda (RA)",
+            "Khabbab ibn al-Aratt (RA)"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 56,
+        "question": "Which Surah is named after a bee?",
+        "options": [
+            "Surah An-Nahl",
+            "Surah An-Naml",
+            "Surah Al-Ankabut",
+            "All of the above"
+        ],
+        "answer": 0,
+        "time": 10
+    },
+    {
+        "id": 57,
+        "question": "Which Companion was the first official Mu'adhdhin (caller to prayer) in Islam?",
+        "options": [
+            "Abu Mahdhurah (RA)",
+            "Abdullah ibn Umm Maktum (RA)",
+            "Bilal ibn Rabah (RA)",
+            "Abu Musa al-Ash'ari (RA)"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 58,
+        "question": "Which Prophet is referred to as Kalimullah (the one who spoke directly with Allah)?",
+        "options": [
+            "Ibrahim (AS)",
+            "Isa (AS)",
+            "Musa (AS)",
+            "Yusuf (AS)"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 59,
+        "question": "Which Companion was given the title \"Hibr al-Ummah\" (The Scholar of the Ummah)?",
+        "options": [
+            "Abdullah ibn Umar (RA)",
+            "Abdullah ibn Abbas (RA)",
+            "Abdullah ibn Mas'ud (RA)",
+            "Abu Hurairah (RA)"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 60,
+        "question": "Which Surah is the only Surah named after a woman?",
+        "options": [
+            "Surah Fatimah",
+            "Surah Maryam",
+            "Surah Nisa",
+            "Surah Mumtahanah"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 61,
+        "question": "Which Companion was chosen by Abu Bakr (RA) to lead the Muslims in prayer during his final illness before the Prophet ﷺ passed away?",
+        "options": [
+            "Umar ibn al-Khattab (RA)",
+            "Ali ibn Abi Talib (RA)",
+            "Abu Bakr as-Siddiq (RA)",
+            "Uthman ibn Affan (RA)"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 62,
+        "question": "Which Sahabi did Prophet Muhammad ﷺ help to become free from slavery by planting 300+ date palm trees?",
+        "options": [
+            "Bilal ibn Rabah (RA)",
+            "Thawban ibn Bujdud (RA)",
+            "Zayd ibn Harithah (RA)",
+            "Salman al-Farisi (RA)"
+        ],
+        "answer": 3,
+        "time": 10
+    },
+    {
+        "id": 63,
+        "question": "What is the virtue of reciting Ayatul Kursi before going to bed at night?",
+        "options": [
+            "Takes away hunger",
+            "Gives you strength",
+            "You are protected from harm till sunrise",
+            "A house in Jannah"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 64,
+        "question": "Which Prophet (AS) had control of the Jinn and was able to talk to animals?",
+        "options": [
+            "Sulaiman (AS)",
+            "Dawud (AS)",
+            "Yunus (AS)",
+            "Musa (AS)"
+        ],
+        "answer": 0,
+        "time": 10
+    },
+    {
+        "id": 65,
+        "question": "What is Az-Zaqqum?",
+        "options": [
+            "Food for the people of Hellfire",
+            "Drink for the people of Hellfire",
+            "Home for the people of Hellfire",
+            "Clothes for the people of Hellfire"
+        ],
+        "answer": 0,
+        "time": 10
+    },
+    {
+        "id": 66,
+        "question": "What was the relation between Prophet Musa (AS) and Prophet Haroon (AS)?",
+        "options": [
+            "Cousins",
+            "Brothers",
+            "Father and son",
+            "Friends"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 67,
+        "question": "What does Allah's name Al-Mu'izz mean?",
+        "options": [
+            "The One who dishonours",
+            "The One who will judge",
+            "The One who honours",
+            "The One who sees it all"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 68,
+        "question": "Who was a first cousin of Prophet Muhammad ﷺ?",
+        "options": [
+            "Abdullah ibn al-Abbas (RA)",
+            "Abdullah ibn Umar (RA)",
+            "Khalid ibn al-Walid (RA)",
+            "Abu Hurairah (RA)"
+        ],
+        "answer": 0,
+        "time": 10
+    },
+    {
+        "id": 69,
+        "question": "What issue was Imam al-Bukhari (RH) born with and how was it fixed?",
+        "options": [
+            "Deaf and fixed with medicine",
+            "Blind and fixed with medicine",
+            "Deaf and fixed with his mother's dua",
+            "Blind and fixed with his mother's dua"
+        ],
+        "answer": 3,
+        "time": 10
+    },
+    {
+        "id": 70,
+        "question": "In Jannah, what is Tuba?",
+        "options": [
+            "A fruit",
+            "A tree",
+            "A river",
+            "A door"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 71,
+        "question": "What does Allah's name Al-Ghani mean?",
+        "options": [
+            "The Giver",
+            "The Protector",
+            "The Independent",
+            "The Wise"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 72,
+        "question": "Which Angel will blow the horn to signal the Day of Judgement?",
+        "options": [
+            "Jibraeel (AS)",
+            "Mikaeel (AS)",
+            "Malik ul-Mawt (AS)",
+            "Israfeel (AS)"
+        ],
+        "answer": 3,
+        "time": 10
+    },
+    {
+        "id": 73,
+        "question": "Which uncle of Prophet Muhammad ﷺ did not accept Islam?",
+        "options": [
+            "Abdul Muttalib",
+            "Hamzah",
+            "Abu Lahab",
+            "Al-Abbas"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 74,
+        "question": "For whom is the dua \"Rabbir Hamhuma Kama Rabbayani Sagheera\"?",
+        "options": [
+            "Children",
+            "Parents",
+            "The whole Ummah",
+            "The deceased"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 75,
+        "question": "Which Khalifah took control of Al-Aqsa in Jerusalem?",
+        "options": [
+            "Abu Bakr (RA)",
+            "Umar ibn al-Khattab (RA)",
+            "Uthman ibn Affan (RA)",
+            "Ali ibn Abi Talib (RA)"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 76,
+        "question": "The scholars have divided shirk into how many types?",
+        "options": [
+            "2",
+            "3",
+            "4",
+            "5"
+        ],
+        "answer": 0,
+        "time": 10
+    },
+    {
+        "id": 77,
+        "question": "Which pillar was commanded during the journey of Al-Isra wal-Mi'raj?",
+        "options": [
+            "Fasting Ramadan",
+            "Performing Hajj",
+            "Praying 5 times Salah",
+            "Paying Zakat"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 78,
+        "question": "Which Angel is Hellfire's gatekeeper?",
+        "options": [
+            "Jibraeel (AS)",
+            "Mikaeel (AS)",
+            "Maalik (AS)",
+            "Israfeel (AS)"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 79,
+        "question": "What was the name of the flying animal on which Prophet Muhammad ﷺ travelled to the heavens?",
+        "options": [
+            "Mikaeel",
+            "Buraaq",
+            "Miraaj",
+            "Suraaq"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 80,
+        "question": "Who is the only Sahabi whose name is mentioned in the Quran?",
+        "options": [
+            "Abu Bakr as-Siddiq (RA)",
+            "Zayd ibn Harithah (RA)",
+            "Umar ibn al-Khattab (RA)",
+            "Khalid ibn al-Walid (RA)"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 81,
+        "question": "How many Prophets (AS) are mentioned by name in the Quran?",
+        "options": [
+            "25",
+            "313",
+            "110,000",
+            "124,000"
+        ],
+        "answer": 0,
+        "time": 10
+    },
+    {
+        "id": 82,
+        "question": "What is the name of Madinah in the Quran?",
+        "options": [
+            "Bakkah",
+            "Quds",
+            "Marwah",
+            "Yathrib"
+        ],
+        "answer": 3,
+        "time": 10
+    },
+    {
+        "id": 83,
+        "question": "Which wife of the Prophet ﷺ had children and was a widow when he ﷺ married her?",
+        "options": [
+            "Hafsah (RA)",
+            "Khadijah (RA)",
+            "Zaynab bint Jahsh (RA)",
+            "Umm Salamah (RA)"
+        ],
+        "answer": 3,
+        "time": 10
+    },
+    {
+        "id": 84,
+        "question": "Which of the following is the name of Allah meaning \"The Most Loving One\"?",
+        "options": [
+            "Al-Majeed",
+            "Al-Wadud",
+            "Al-Muqtadir",
+            "Al-Waarith"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 85,
+        "question": "How many times more reward does one get for praying Salah inside Masjid al-Aqsa?",
+        "options": [
+            "250 times more",
+            "500 times more",
+            "1,000 times more",
+            "50,000 times more"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 86,
+        "question": "Which side did Prophet Muhammad ﷺ encourage us not to sleep on?",
+        "options": [
+            "Back side",
+            "Left side",
+            "Right side",
+            "Stomach side"
+        ],
+        "answer": 3,
+        "time": 10
+    },
+    {
+        "id": 87,
+        "question": "For which two reasons can a Muslim keep a dog?",
+        "options": [
+            "Protection",
+            "As a pet",
+            "For racing",
+            "For hunting"
+        ],
+        "answer": 0,
+        "time": 10
+    },
+    {
+        "id": 88,
+        "question": "What is the reward for reciting Surah Ikhlas 10 times?",
+        "options": [
+            "A palace in Paradise",
+            "A huge tree in Paradise",
+            "A special fountain in Paradise",
+            "A delicious meal in Paradise"
+        ],
+        "answer": 0,
+        "time": 10
+    },
+    {
+        "id": 89,
+        "question": "Who is the father of the Sahabi Ikrimah?",
+        "options": [
+            "Abu Jahl",
+            "Abu Sufyan",
+            "Abu Lahab",
+            "Ismail (AS)"
+        ],
+        "answer": 0,
+        "time": 10
+    },
+    {
+        "id": 90,
+        "question": "How many pages does the new passport of Sri Lanka have?",
+        "options": [
+            "48",
+            "64",
+            "36",
+            "50"
+        ],
+        "answer": 0,
+        "time": 10
+    },
+    {
+        "id": 91,
+        "question": "Who gave the name 'Muslims' to the Muslims?",
+        "options": [
+            "Prophet Muhammad ﷺ",
+            "Prophet Nuh (AS)",
+            "Prophet Ibrahim (AS)",
+            "Prophet Adam (AS)"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 92,
+        "question": "Prophet Muhammad's father, Abdullah, died approximately six months before the Prophet's birth. Where was he buried?",
+        "options": [
+            "Madinah",
+            "Makkah",
+            "Taif",
+            "Jerusalem"
+        ],
+        "answer": 0,
+        "time": 10
+    },
+    {
+        "id": 93,
+        "question": "Which Salah was performed first in the direction of the Ka'bah?",
+        "options": [
+            "Zuhr",
+            "Isha",
+            "Fajr",
+            "Maghrib"
+        ],
+        "answer": 0,
+        "time": 10
+    },
+    {
+        "id": 94,
+        "question": "What is Sidrat al-Muntaha?",
+        "options": [
+            "Food for the people of Jannah",
+            "An olive tree of the farthest boundary",
+            "A lote tree of the farthest boundary",
+            "Drink for the people of Jannah"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 95,
+        "question": "Which Surah is recited for seeking protection in Allah from the evil eye and witchcraft?",
+        "options": [
+            "Surah Yaseen",
+            "Surah Falaq",
+            "Surah Ikhlas",
+            "Surah Al-Baqarah"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 96,
+        "question": "Who will get their book of deeds in the right hand on the Day of Judgment?",
+        "options": [
+            "The disbelievers",
+            "The believers",
+            "The hypocrites",
+            "The leaders"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 97,
+        "question": "How did Abu Hurairah (RA) stop forgetting and develop an amazing memory?",
+        "options": [
+            "The Prophet ﷺ made dua for him",
+            "The Prophet ﷺ blessed his clothing sheet",
+            "He ate lots of nuts",
+            "He drank a lot of milk"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 98,
+        "question": "How many gates of Jannah are there?",
+        "options": [
+            "5",
+            "6",
+            "7",
+            "8"
+        ],
+        "answer": 3,
+        "time": 10
+    },
+    {
+        "id": 99,
+        "question": "Who was the only person behind whom the Prophet ﷺ prayed a full rak'ah?",
+        "options": [
+            "Abu Bakr (RA)",
+            "Umar ibn al-Khattab (RA)",
+            "Abdur Rahman ibn Awf (RA)",
+            "Bilal ibn Rabah (RA)"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 100,
+        "question": "Which fruit is mentioned in the Quran?",
+        "options": [
+            "Grapes",
+            "Apples",
+            "Mangoes",
+            "Oranges"
+        ],
+        "answer": 0,
         "time": 10
     }
 ]
