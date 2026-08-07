@@ -1,39 +1,34 @@
-<h1>🏆 WINNER</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Winner | ARWA Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="js/tailwind-config.js"></script>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="font-body min-h-screen flex items-center justify-center px-4 py-10 relative z-10 overflow-hidden">
 
-<h2 id="winner"></h2>
+  <canvas id="confettiCanvas"></canvas>
 
-<script src="/socket.io/socket.io.js"></script>
+  <main class="w-full max-w-xl glass p-10 sm:p-14 text-center relative z-10 animate-in glow-pulse">
+    <p class="ornament mb-6"><span class="diamond"></span></p>
 
-<script>
+    <h1 class="font-display text-2xl sm:text-3xl gold-text tracking-widest mb-2">🏆 CHAMPION 🏆</h1>
 
-const socket=io();
+    <h2 id="winnerTeam" class="font-display text-5xl sm:text-7xl gold-text my-6 tracking-wide">TEAM —</h2>
 
-socket.on("quizFinished",(winner)=>{
+    <p id="winnerScore" class="text-xl sm:text-2xl text-ink font-semibold">0 Points</p>
 
-document.getElementById("winner").innerHTML=
-`TEAM ${winner.id}<br>${winner.score} Points`;
+    <p class="ornament mt-8"><span class="diamond"></span></p>
 
-});
+    <a href="index.html" class="btn-outline inline-block mt-8">RETURN HOME</a>
+  </main>
 
-socket.on("quizFinished",(winner)=>{
-
-document.getElementById("winner").innerHTML=`
-🏆 TEAM ${winner.id}
-<br>
-${winner.score} Points
-`;
-
-confetti({
-
-particleCount:300,
-spread:180,
-origin:{y:.6}
-
-});
-
-});
-
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/@hiseb/confetti@2.2.0/dist/confetti.min.js"></script>
-
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/winner.js"></script>
+</body>
+</html>

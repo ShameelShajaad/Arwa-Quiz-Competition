@@ -115,7 +115,8 @@ io.on("connection", (socket) => {
   });
   socket.on("nextQuestion", () => {
     if (game.currentQuestion >= questions.length - 1) {
-      io.emit("quizFinished");
+      game.teams.sort((a, b) => b.score - a.score);
+      io.emit("quizFinished", game.teams[0]);
       return;
     }
 
@@ -133,12 +134,6 @@ io.on("connection", (socket) => {
 
     game.timer = 10;
     io.emit("timer", 10);
-
-    if (game.currentQuestion >= questions.length - 1) {
-      game.teams.sort((a, b) => b.score - a.score);
-      io.emit("quizFinished", game.teams[0]);
-      return;
-    }
   });
 });
 

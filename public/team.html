@@ -1,57 +1,54 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Team</title>
-
-<link rel="stylesheet" href="css/style.css">
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Team | ARWA Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="js/tailwind-config.js"></script>
+<link rel="stylesheet" href="css/style.css" />
 </head>
+<body class="font-body min-h-screen flex items-center justify-center px-4 py-8 relative z-10">
 
-<body>
+  <main class="w-full max-w-lg glass p-6 sm:p-8 animate-in">
 
-<div class="card">
+    <div class="flex items-center justify-between mb-4">
+      <h1 id="teamName" class="font-display text-xl gold-text tracking-wide">SELECT TEAM</h1>
+      <div class="timer-ring-wrap w-16 h-16">
+        <svg viewBox="0 0 100 100" width="64" height="64">
+          <defs>
+            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#F4D03F" />
+              <stop offset="100%" stop-color="#D4AF37" />
+            </linearGradient>
+          </defs>
+          <circle class="timer-ring-bg" cx="50" cy="50" r="44" stroke-width="8"></circle>
+          <circle id="ringFg" class="timer-ring-fg" cx="50" cy="50" r="44" stroke-width="8"
+            stroke-dasharray="276.46" stroke-dashoffset="0"></circle>
+        </svg>
+        <span id="timer" class="timer-value text-base">10</span>
+      </div>
+    </div>
 
-<h1 id="teamName">
-Select Team
-</h1>
+    <span id="questionNo" class="text-muted text-xs tracking-widest uppercase">Question 1</span>
 
-<br><br>
+    <div class="ornament my-4"><span class="diamond"></span></div>
 
-<h2 id="question">
-Waiting for Host...
-</h2>
+    <h2 id="question" class="text-lg sm:text-xl font-medium leading-relaxed mb-6 min-h-[3.5rem]">Waiting for Host...</h2>
 
-<h3 id="questionNo">Question 1</h3>
+    <div id="answers" class="grid gap-3">
+      <button class="option-btn" id="a0"></button>
+      <button class="option-btn" id="a1"></button>
+      <button class="option-btn" id="a2"></button>
+      <button class="option-btn" id="a3"></button>
+    </div>
 
-<br>
+    <p id="answeredNote" class="text-center text-gold-soft text-sm mt-5 hidden">✓ Answer locked in — wait for reveal</p>
+  </main>
 
-<div id="answers">
-
-<button class="answer" id="a0"></button>
-<button class="answer" id="a1"></button>
-<button class="answer" id="a2"></button>
-<button class="answer" id="a3"></button>
-
-</div>
-
-<br>
-
-<h1 id="timer">
-10
-</h1>
-
-<div id="leaderboard" style="display:none;"></div>
-
-</div>
-
-<script src="/socket.io/socket.io.js"></script>
-<script src="js/team.js"></script>
-
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/team.js"></script>
 </body>
-
 </html>

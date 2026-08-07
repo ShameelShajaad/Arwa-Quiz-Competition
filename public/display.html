@@ -1,87 +1,51 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-
-<meta charset="UTF-8">
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ARWA Quiz Display</title>
-
-<link rel="stylesheet" href="css/style.css">
-
-<style>
-
-body{
-
-background:#111;
-color:white;
-text-align:center;
-padding:40px;
-
-}
-
-#question{
-
-font-size:45px;
-margin-top:60px;
-
-}
-
-.option{
-
-width:70%;
-margin:20px auto;
-padding:20px;
-font-size:28px;
-
-background:#222;
-
-border-radius:15px;
-
-}
-
-#timer{
-
-font-size:120px;
-
-color:#FFD700;
-
-margin:40px;
-
-}
-
-.correct{
-
-background:green !important;
-
-}
-
-</style>
-
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="js/tailwind-config.js"></script>
+<link rel="stylesheet" href="css/style.css" />
 </head>
+<body class="font-body min-h-screen flex flex-col items-center justify-center px-6 py-10 relative z-10 text-center">
 
-<body>
+  <header class="mb-8 animate-in">
+    <h1 class="font-display text-3xl sm:text-5xl gold-text tracking-widest">ARWA QUIZ COMPETITION</h1>
+    <div class="ornament mt-4"><span class="diamond"></span></div>
+  </header>
 
-<h1>ARWA QUIZ COMPETITION</h1>
+  <section class="w-full max-w-4xl glass p-8 sm:p-12 animate-in">
+    <span id="questionNo" class="text-muted text-sm tracking-widest uppercase">Question 1</span>
 
-<h2 id="questionNo"></h2>
+    <h2 id="question" class="font-display text-2xl sm:text-4xl leading-relaxed my-6">Waiting for host to start...</h2>
 
-<div id="question">Waiting...</div>
+    <div id="options" class="grid sm:grid-cols-2 gap-5 mb-10 text-left">
+      <div class="option-btn text-lg sm:text-xl" id="o0" style="cursor:default;"></div>
+      <div class="option-btn text-lg sm:text-xl" id="o1" style="cursor:default;"></div>
+      <div class="option-btn text-lg sm:text-xl" id="o2" style="cursor:default;"></div>
+      <div class="option-btn text-lg sm:text-xl" id="o3" style="cursor:default;"></div>
+    </div>
 
-<br>
+    <div class="timer-ring-wrap w-40 h-40 mx-auto">
+      <svg viewBox="0 0 100 100" width="160" height="160">
+        <defs>
+          <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#F4D03F" />
+            <stop offset="100%" stop-color="#D4AF37" />
+          </linearGradient>
+        </defs>
+        <circle class="timer-ring-bg" cx="50" cy="50" r="44" stroke-width="6"></circle>
+        <circle id="ringFg" class="timer-ring-fg" cx="50" cy="50" r="44" stroke-width="6"
+          stroke-dasharray="276.46" stroke-dashoffset="0"></circle>
+      </svg>
+      <span id="timer" class="timer-value text-5xl">10</span>
+    </div>
+  </section>
 
-<div class="option" id="o0"></div>
-<div class="option" id="o1"></div>
-<div class="option" id="o2"></div>
-<div class="option" id="o3"></div>
-
-<div id="timer">10</div>
-
-<div id="leaderboard"></div>
-
-<script src="/socket.io/socket.io.js"></script>
-<script src="js/display.js"></script>
-
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/display.js"></script>
 </body>
-
 </html>

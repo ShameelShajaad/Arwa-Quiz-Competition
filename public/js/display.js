@@ -1,81 +1,61 @@
 const socket = io({
-    transports:["websocket"]
+  transports: ["websocket"],
 });
 
-socket.on("question",(q)=>{
+const TOTAL_TIME = 10;
+const RING_CIRCUMFERENCE = 276.46;
 
-document.getElementById("question").innerHTML=q.question;
+const timerEl = document.getElementById("timer");
+const ringFg = document.getElementById("ringFg");
 
-document.getElementById("o0").innerHTML="A. "+q.options[0];
-document.getElementById("o1").innerHTML="B. "+q.options[1];
-document.getElementById("o2").innerHTML="C. "+q.options[2];
-document.getElementById("o3").innerHTML="D. "+q.options[3];
+function setRing(time) {
+  const ratio = Math.max(0, Math.min(1, time / TOTAL_TIME));
+  ringFg.style.strokeDashoffset = RING_CIRCUMFERENCE * (1 - ratio);
+}
 
+socket.on("question", (q) => {
+  document.getElementById("questionNo").textContent = `Question`;
+  document.getElementById("question").textContent = q.question;
+
+  const labels = ["A.", "B.", "C.", "D."];
+  for (let i = 0; i < 4; i++) {
+    const el = document.getElementById("o" + i);
+    el.textContent = `${labels[i]} ${q.options[i]}`;
+    el.classList.remove("correct");
+  }
 });
 
-socket.on("timer",(time)=>{
-
-document.getElementById("timer").innerHTML=time;
-
+socket.on("timer", (time) => {
+  timerEl.textContent = time;
+  setRing(time);
 });
 
-socket.on("correctAnswer",(correct)=>{
-
-document
-.querySelectorAll(".option")
-.forEach(x=>x.classList.remove("correct"));
-
-document
-.getElementById("o"+correct)
-.classList.add("correct");
-
+socket.on("correctAnswer", (correct) => {
+  document.querySelectorAll(".option-btn").forEach((el) => el.classList.remove("correct"));
+  const el = document.getElementById("o" + correct);
+  if (el) el.classList.add("correct");
 });
 
-socket.on("questionChanged",(data)=>{
-
-document.getElementById("questionNo").innerHTML=
-`Question ${data.currentQuestion+1}`;
-
-document
-.querySelectorAll(".option")
-.forEach(x=>x.classList.remove("correct"));
-
+socket.on("questionChanged", (data) => {
+  document.getElementById("questionNo").textContent = `Question ${data.currentQuestion + 1} / ${data.totalQuestions}`;
+  document.querySelectorAll(".option-btn").forEach((el) => el.classList.remove("correct"));
+  timerEl.textContent = TOTAL_TIME;
+  setRing(TOTAL_TIME);
 });
 
-socket.on("showLeaderboard",(teams)=>{
-
-teams.sort((a,b)=>b.score-a.score);
-
-let html="<h2>🏆 LIVE SCORES</h2>";
-
-teams.forEach((team,index)=>{
-
-const medal=["🥇","🥈","🥉","4️⃣"];
-
-html+=`
-<div style="font-size:35px;margin:15px;">
-${medal[index]} Team ${team.id} - ${team.score}
-</div>
-`;
-
+socket.on("state", (game) => {
+  document.getElementById("questionNo").textContent = `Question ${game.currentQuestion + 1}`;
+  timerEl.textContent = game.timer;
+  setRing(game.timer);
 });
 
-document.getElementById("leaderboard").innerHTML=html;
-
+// Projector never shows scores/leaderboard — redirect to the dedicated Winner Page instead.
+socket.on("quizFinished", (winner) => {
+  if (winner) {
+    sessionStorage.setItem("arwaWinner", JSON.stringify(winner));
+  }
+  window.location.href = "winner.html";
 });
 
-socket.on("quizFinished",(winner)=>{
-
-document.body.innerHTML=`
-<h1 style="font-size:90px;">🏆 WINNER 🏆</h1>
-
-<h1 style="font-size:120px;">
-TEAM ${winner.id}
-</h1>
-
-<h2 style="font-size:60px;">
-${winner.score} Points
-</h2>
-`;
-
-});
+socket.on("connect", () => console.log("Display Connected"));
+socket.on("disconnect", () => console.log("Display Disconnected"));
