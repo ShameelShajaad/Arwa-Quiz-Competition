@@ -1,38 +1,194 @@
 [
     {
         "id": 1,
-        "question": "What is the capital of Sri Lanka?",
+        "question": "Which battle resulted in the revelation of Surah Al-Anfal?",
         "options": [
-            "Colombo",
-            "Kandy",
-            "Jaffna",
-            "Galle"
+            "Battle of Uhud",
+            "Battle of Khandaq",
+            "Battle of Badr",
+            "Battle of Hunayn"
         ],
-        "answer": 0,
+        "answer": 2,
         "time": 10
     },
     {
         "id": 2,
-        "question": "2 + 2 = ?",
+        "question": "Who was the first martyr in Islam?",
         "options": [
-            "3",
-            "4",
-            "5",
-            "6"
+            "Yasir ibn Amir (RA)",
+            "Hamzah ibn Abdul Muttalib (RA)",
+            "Mus'ab ibn Umayr (RA)",
+            "Sumayyah bint Khayyat (RA)"
+        ],
+        "answer": 3,
+        "time": 10
+    },
+    {
+        "id": 3,
+        "question": "What was the name of the Jewish tribe expelled after the Battle of Badr?",
+        "options": [
+            "Banu Qurayzah",
+            "Banu Qaynuqa",
+            "Banu Nadir",
+            "Banu Mustaliq"
         ],
         "answer": 1,
         "time": 10
     },
     {
-        "id": 3,
-        "question": "Which Companion was appointed by the Prophet ﷺ to write down the terms of the Treaty of Hudaybiyyah?",
+        "id": 4,
+        "question": "Which Surah is known as \"Aroosul Qur'an\" (The Bride of the Qur'an)?",
         "options": [
-            "Ubayy ibn Ka'b (RA)",
-            "Zayd ibn Thabit (RA)",
-            "Ali ibn Abi Talib (RA)",
-            "Mu'awiyah ibn Abi Sufyan (RA)"
+            "Surah Al-Waqi'ah",
+            "Surah Al-Mulk",
+            "Surah Ar-Rahman",
+            "Surah Yasin"
         ],
         "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 5,
+        "question": "During which battle did the Prophet Muhammad ﷺ wear two coats of armour as an extra precaution?",
+        "options": [
+            "Battle of Badr",
+            "Battle of Khaybar",
+            "Battle of Hunayn",
+            "Battle of Uhud"
+        ],
+        "answer": 3,
+        "time": 10
+    },
+    {
+        "id": 6,
+        "question": "Which country has the largest Muslim population in the world?",
+        "options": [
+            "Pakistan",
+            "India",
+            "Indonesia",
+            "Bangladesh"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 7,
+        "question": "Which city is known as the \"City of a Thousand Minarets\"?",
+        "options": [
+            "Istanbul",
+            "Cairo",
+            "Damascus",
+            "Fez"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 8,
+        "question": "Which sea separates Saudi Arabia and Egypt?",
+        "options": [
+            "Arabian Sea",
+            "Mediterranean Sea",
+            "Black Sea",
+            "Red Sea"
+        ],
+        "answer": 3,
+        "time": 10
+    },
+    {
+        "id": 9,
+        "question": "Which country is home to the Blue Mosque (Sultan Ahmed Mosque)?",
+        "options": [
+            "Saudi Arabia",
+            "Egypt",
+            "Türkiye",
+            "Jordan"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 10,
+        "question": "Which Companion was entrusted by the Prophet ﷺ with the key of the Ka'bah after the Conquest of Makkah?",
+        "options": [
+            "Bilal ibn Rabah (RA)",
+            "Abbas ibn Abdul Muttalib (RA)",
+            "Uthman ibn Talhah (RA)",
+            "Abu Sufyan ibn Harb (RA)"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 11,
+        "question": "Which country issues the Kiswah (covering) of the Ka'bah every year?",
+        "options": [
+            "United Arab Emirates",
+            "Egypt",
+            "Saudi Arabia",
+            "Jordan"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 12,
+        "question": "Which city is the headquarters of the Islamic Development Bank (IsDB)?",
+        "options": [
+            "Riyadh",
+            "Makkah",
+            "Madinah",
+            "Jeddah"
+        ],
+        "answer": 3,
+        "time": 10
+    },
+    {
+        "id": 13,
+        "question": "Which country has the largest Muslim population in Africa?",
+        "options": [
+            "Egypt",
+            "Algeria",
+            "Nigeria",
+            "Morocco"
+        ],
+        "answer": 2,
+        "time": 10
+    },
+    {
+        "id": 14,
+        "question": "Which city is known as the \"City of the Prophet\" (Madinat an-Nabi)?",
+        "options": [
+            "Taif",
+            "Madinah",
+            "Makkah",
+            "Jerusalem"
+        ],
+        "answer": 1,
+        "time": 10
+    },
+    {
+        "id": 15,
+        "question": "Which organisation represents the collective interests of Muslim-majority countries at the international level?",
+        "options": [
+            "Arab League",
+            "Gulf Cooperation Council (GCC)",
+            "Muslim World League",
+            "Organisation of Islamic Cooperation (OIC)"
+        ],
+        "answer": 3,
+        "time": 10
+    },
+    {
+        "id": 16,
+        "question": "W",
+        "options": [
+            "B",
+            "B",
+            "B",
+            "B"
+        ],
+        "answer": 1,
         "time": 10
     }
 ]
