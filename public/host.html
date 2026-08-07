@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#0B0908" />
+<link rel="icon" href="assets/logo.png" />
 <title>Host Dashboard | ARWA Quiz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -14,13 +16,20 @@
 
   <div class="max-w-6xl mx-auto">
 
-    <header class="flex items-center justify-between mb-8 animate-in">
+    <header class="flex flex-wrap items-center justify-between gap-3 mb-6 animate-in">
       <div>
         <h1 class="font-display text-2xl sm:text-3xl gold-text tracking-wide">HOST DASHBOARD</h1>
-        <p class="text-muted text-sm mt-1" id="roundName">ARWA Quiz Competition — Control Panel</p>
+        <p class="text-muted text-sm mt-1">ARWA Quiz Competition — Control Panel</p>
       </div>
-      <a href="index.html" class="btn-outline text-xs sm:text-sm">EXIT</a>
+      <div class="flex items-center gap-3">
+        <span id="connectionBadge" class="connection-badge"><span class="connection-dot"></span><span id="connectionText">Connecting…</span></span>
+        <a href="index.html" class="btn-outline text-xs sm:text-sm">EXIT</a>
+      </div>
     </header>
+
+    <div class="mb-6 animate-in">
+      <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
+    </div>
 
     <div class="grid lg:grid-cols-3 gap-6">
 
@@ -55,13 +64,15 @@
           <div class="glass-soft px-4 py-3 text-sm text-muted" id="ho3">—</div>
         </div>
 
-        <div class="flex flex-wrap gap-3">
+        <div class="flex flex-wrap items-center gap-3">
           <button id="startBtn" class="btn-gold">▶ START</button>
           <button id="revealBtn" class="btn-outline" disabled>REVEAL ANSWER</button>
           <button id="nextBtn" class="btn-outline" disabled>NEXT QUESTION →</button>
+          <span id="answeredCounter" class="answered-counter hidden">0 / 4 answered</span>
         </div>
 
         <p id="correctAnswer" class="mt-5 text-correct font-semibold text-sm tracking-wide"></p>
+        <p class="text-muted text-xs mt-6">Shortcuts: <kbd class="text-gold-soft">Space</kbd> start · <kbd class="text-gold-soft">R</kbd> reveal · <kbd class="text-gold-soft">N</kbd> next</p>
       </section>
 
       <!-- RIGHT: Team status + Scoreboard -->
@@ -85,7 +96,7 @@
             <div class="score-row"><span>Team C</span><span>0</span></div>
             <div class="score-row"><span>Team D</span><span>0</span></div>
           </div>
-          <p class="text-muted text-xs mt-3">Visible only on this dashboard.</p>
+          <p class="text-muted text-xs mt-3">Visible only on this dashboard — never sent to team or projector devices.</p>
         </div>
 
       </section>
@@ -93,7 +104,7 @@
   </div>
 
   <script src="/socket.io/socket.io.js"></script>
+  <script src="js/sound.js"></script>
   <script src="js/host.js"></script>
-  <audio id="clickSound" src="assets/sounds/clickSound.mp3"></audio>
 </body>
 </html>

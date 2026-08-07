@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#0B0908" />
+<link rel="icon" href="assets/logo.png" />
 <title>Team | ARWA Quiz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -14,7 +16,7 @@
 
   <main class="w-full max-w-lg glass p-6 sm:p-8 animate-in">
 
-    <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center justify-between mb-3">
       <h1 id="teamName" class="font-display text-xl gold-text tracking-wide">SELECT TEAM</h1>
       <div class="timer-ring-wrap w-16 h-16">
         <svg viewBox="0 0 100 100" width="64" height="64">
@@ -32,7 +34,12 @@
       </div>
     </div>
 
-    <span id="questionNo" class="text-muted text-xs tracking-widest uppercase">Question 1</span>
+    <div class="progress-track mb-4"><div id="progressFill" class="progress-fill"></div></div>
+
+    <div class="flex items-center justify-between mb-2">
+      <span id="questionNo" class="text-muted text-xs tracking-widest uppercase">Question 1</span>
+      <span id="connectionBadge" class="connection-badge text-[0.65rem]"><span class="connection-dot"></span><span id="connectionText">Connecting…</span></span>
+    </div>
 
     <div class="ornament my-4"><span class="diamond"></span></div>
 
@@ -49,6 +56,7 @@
   </main>
 
   <script src="/socket.io/socket.io.js"></script>
+  <script src="js/sound.js"></script>
   <script src="js/team.js"></script>
 </body>
 </html>

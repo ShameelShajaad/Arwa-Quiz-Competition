@@ -387,6 +387,158 @@ body::before {
   z-index: 50;
 }
 
+/* =========================
+   SOUND TOGGLE
+   ========================= */
+
+.sound-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 60;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.sound-toggle:hover {
+  transform: translateY(-2px) scale(1.05);
+  border-color: var(--gold);
+}
+
+/* =========================
+   CONNECTION STATUS
+   ========================= */
+
+.connection-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(212, 175, 55, 0.18);
+}
+.connection-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--wrong);
+  box-shadow: 0 0 8px var(--wrong);
+  transition: all 0.25s ease;
+}
+.connection-badge.online .connection-dot {
+  background: var(--correct);
+  box-shadow: 0 0 8px var(--correct);
+}
+.connection-badge.online {
+  color: var(--correct);
+  border-color: rgba(47, 158, 99, 0.3);
+}
+
+/* =========================
+   PROGRESS BAR
+   ========================= */
+
+.progress-track {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.15);
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--gold-soft), var(--gold-bright));
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+  transition: width 0.5s ease;
+  width: 0%;
+}
+
+/* =========================
+   ANSWERED COUNTER (no scores — engagement only)
+   ========================= */
+
+.answered-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "Cinzel", serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: var(--gold-soft);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+}
+
+/* =========================
+   TIMER URGENCY STATE (<= 3s remaining)
+   ========================= */
+
+.timer-value.urgent {
+  color: var(--wrong);
+  animation: urgentPulse 0.6s ease-in-out infinite;
+}
+.timer-ring-fg.urgent {
+  stroke: var(--wrong) !important;
+  filter: drop-shadow(0 0 10px rgba(179, 66, 58, 0.8));
+}
+@keyframes urgentPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+/* =========================
+   QUESTION TRANSITION
+   ========================= */
+
+@keyframes questionIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.question-in {
+  animation: questionIn 0.45s ease both;
+}
+
+/* reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
 /* team select chips */
 .team-chip {
   font-family: "Cinzel", serif;

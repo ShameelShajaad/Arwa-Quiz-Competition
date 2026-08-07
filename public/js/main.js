@@ -7,11 +7,12 @@ const displayBtn = document.getElementById("displayBtn");
 const teamModal = document.getElementById("teamModal");
 const closeModal = document.getElementById("closeModal");
 
-if (hostBtn) hostBtn.onclick = () => (location.href = "host.html");
-if (displayBtn) displayBtn.onclick = () => (location.href = "display.html");
+if (hostBtn) hostBtn.onclick = () => { QuizSound.click(); location.href = "host.html"; };
+if (displayBtn) displayBtn.onclick = () => { QuizSound.click(); location.href = "display.html"; };
 
 if (teamBtn) {
   teamBtn.onclick = () => {
+    QuizSound.click();
     teamModal.classList.remove("hidden");
     teamModal.classList.add("flex");
   };
@@ -19,6 +20,7 @@ if (teamBtn) {
 
 if (closeModal) {
   closeModal.onclick = () => {
+    QuizSound.click();
     teamModal.classList.add("hidden");
     teamModal.classList.remove("flex");
   };
@@ -26,6 +28,7 @@ if (closeModal) {
 
 document.querySelectorAll(".team-chip").forEach((chip) => {
   chip.onclick = () => {
+    QuizSound.click();
     const team = chip.getAttribute("data-team");
     location.href = `team.html?team=${team}`;
   };
