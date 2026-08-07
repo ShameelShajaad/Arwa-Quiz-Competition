@@ -5,33 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="theme-color" content="#0B0908" />
 <link rel="icon" href="assets/logo.png" />
-<title>Winner | ARWA Quiz</title>
+<title>Champion | ARWA Quiz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="js/tailwind-config.js"></script>
 <link rel="stylesheet" href="css/style.css" />
 </head>
-<body class="font-body min-h-screen flex items-center justify-center px-4 py-10 relative z-10 overflow-hidden">
-
-  <canvas id="confettiCanvas"></canvas>
-
-  <main class="w-full max-w-xl glass p-10 sm:p-14 text-center relative z-10 animate-in glow-pulse">
-    <p class="ornament mb-6"><span class="diamond"></span></p>
-
-    <h1 class="font-display text-2xl sm:text-3xl gold-text tracking-widest mb-2">🏆 CHAMPION 🏆</h1>
-
-    <h2 id="winnerTeam" class="font-display text-5xl sm:text-7xl gold-text my-6 tracking-wide">TEAM —</h2>
-
-    <p id="winnerScore" class="text-xl sm:text-2xl text-ink font-semibold">0 Points</p>
-
-    <p class="ornament mt-8"><span class="diamond"></span></p>
-
-    <a href="index.html" class="btn-outline inline-block mt-8">RETURN HOME</a>
+<body class="font-body min-h-screen flex items-center justify-center px-4 py-8 relative z-10">
+  <main class="w-full max-w-xl glass p-10 text-center animate-in">
+    <p class="text-6xl mb-4">🏆</p>
+    <h1 class="font-display text-3xl sm:text-4xl gold-text tracking-wide mb-2">ARWA QUIZ CHAMPION</h1>
+    <p id="winnerName" class="text-2xl mt-6">—</p>
+    <p id="winnerPts" class="text-muted text-lg mt-2"></p>
+    <a href="index.html" class="btn-outline mt-10 inline-block">BACK</a>
   </main>
-
   <script src="/socket.io/socket.io.js"></script>
-  <script src="js/sound.js"></script>
   <script src="js/winner.js"></script>
 </body>
 </html>

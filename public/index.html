@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="theme-color" content="#0B0908" />
 <link rel="icon" href="assets/logo.png" />
 <title>ARWA Quiz Competition</title>
@@ -12,10 +12,10 @@
 <script src="js/tailwind-config.js"></script>
 <link rel="stylesheet" href="css/style.css" />
 </head>
-<body class="font-body min-h-screen flex items-center justify-center px-4 py-10 relative z-10">
+<body class="font-body min-h-screen flex items-center justify-center px-4 py-8 relative z-10">
 
-  <main class="w-full max-w-xl glass p-8 sm:p-12 text-center animate-in">
-    <img src="assets/logo.png" alt="ARWA" class="w-80 mx-auto mb-4 object-contain float-slow" />
+  <main class="w-full max-w-md glass p-8 sm:p-10 text-center animate-in">
+    <img src="assets/logo.png" alt="ARWA" class="w-20 h-20 mx-auto mb-4 object-contain opacity-90" onerror="this.style.display='none'" />
 
     <h1 class="font-display text-3xl sm:text-4xl gold-text tracking-wide">ARWA QUIZ COMPETITION</h1>
 
@@ -23,29 +23,27 @@
       <span class="diamond"></span>
     </div>
 
-    <p class="text-muted text-sm sm:text-base mb-8">Welcome to the official quiz competition. Choose how you'd like to join.</p>
+    <p class="text-muted text-sm sm:text-base mb-8">Official inter-school quiz tournament. Choose how you join.</p>
 
     <div class="grid gap-4">
       <button id="hostBtn" class="btn-gold w-full">HOST DASHBOARD</button>
-      <button id="teamBtn" class="btn-outline w-full">JOIN AS TEAM</button>
+      <button id="teamBtn" class="btn-outline w-full">JOIN AS SCHOOL</button>
       <button id="displayBtn" class="btn-outline w-full">OPEN PROJECTOR DISPLAY</button>
     </div>
   </main>
 
-  <!-- Team select modal -->
   <div id="teamModal" class="fixed inset-0 z-40 hidden items-center justify-center bg-black/70 backdrop-blur-sm px-4">
-    <div class="glass w-full max-w-md p-8 animate-in">
-      <h2 class="font-display text-2xl gold-text text-center mb-6">SELECT YOUR TEAM</h2>
-      <div class="grid grid-cols-2 gap-4">
-        <button class="team-chip" data-team="A">TEAM A</button>
-        <button class="team-chip" data-team="B">TEAM B</button>
-        <button class="team-chip" data-team="C">TEAM C</button>
-        <button class="team-chip" data-team="D">TEAM D</button>
+    <div class="glass w-full max-w-lg p-8 animate-in max-h-[90vh] overflow-y-auto">
+      <h2 class="font-display text-2xl gold-text text-center mb-2">SELECT YOUR SCHOOL</h2>
+      <p class="text-muted text-xs text-center mb-6">School names are set by the Host. Join with the correct name.</p>
+      <div id="schoolList" class="grid gap-3">
+        <p class="text-muted text-sm text-center">Waiting for Host to set school names…</p>
       </div>
       <button id="closeModal" class="btn-outline w-full mt-6">CANCEL</button>
     </div>
   </div>
 
+  <script src="/socket.io/socket.io.js"></script>
   <script src="js/sound.js"></script>
   <script src="js/main.js"></script>
 </body>

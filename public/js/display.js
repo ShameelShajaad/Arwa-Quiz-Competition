@@ -1,109 +1,106 @@
 const socket = io({ transports: ["websocket"] });
+const RING = 276.46;
+let TOTAL = 15;
+const $ = (id) => document.getElementById(id);
 
-let TOTAL_TIME = 10;
-const RING_CIRCUMFERENCE = 276.46;
-
-const timerEl = document.getElementById("timer");
-const ringFg = document.getElementById("ringFg");
-const questionNo = document.getElementById("questionNo");
-const questionEl = document.getElementById("question");
-const progressFill = document.getElementById("progressFill");
-const answeredCounter = document.getElementById("answeredCounter");
-
-function setRing(time) {
-  const ratio = Math.max(0, Math.min(1, time / TOTAL_TIME));
-  ringFg.style.strokeDashoffset = RING_CIRCUMFERENCE * (1 - ratio);
-
-  const urgent = time <= 3 && time > 0;
-  ringFg.classList.toggle("urgent", urgent);
-  timerEl.classList.toggle("urgent", urgent);
-}
-
-function setProgress(current, total) {
-  if (!total) return;
-  progressFill.style.width = `${((current + 1) / total) * 100}%`;
-}
-
-function renderQuestion(q) {
-  TOTAL_TIME = q.time || 10;
-  questionEl.textContent = q.question;
-  questionEl.classList.remove("question-in");
-  void questionEl.offsetWidth;
-  questionEl.classList.add("question-in");
-
-  const labels = ["A.", "B.", "C.", "D."];
-  for (let i = 0; i < 4; i++) {
-    const el = document.getElementById("o" + i);
-    el.textContent = `${labels[i]} ${q.options[i]}`;
-    el.classList.remove("correct");
-  }
+function setRing(t) {
+  const r = Math.max(0, Math.min(1, t / TOTAL));
+  $("ringFg").style.strokeDashoffset = RING * (1 - r);
+  $("ringFg").classList.toggle("urgent", t <= 3 && t > 0);
+  $("timer").classList.toggle("urgent", t <= 3 && t > 0);
 }
 
 socket.on("connect", () => socket.emit("identify", { role: "display" }));
+socket.on("timer", (t) => { $("timer").textContent = t; setRing(t); });
 
-socket.on("question", (q) => {
-  renderQuestion(q);
-  answeredCounter.classList.remove("hidden");
-  answeredCounter.textContent = "0 / 4 answered";
-  QuizSound.questionStart();
-});
+socket.on("state", (st) => {
+  $("phaseLabel").textContent = (st.phase || "").replace(/_/g, " ").toUpperCase();
+  $("vsLine").textContent = `${st.schoolAName || "—"}  vs  ${st.schoolBName || "—"}`;
+  const maxQ = st.questionsPerMatch || 10;
+  $("qMeta").textContent = st.questionStarted
+    ? `Question ${(st.currentQuestionInMatch || 0) + 1} / ${maxQ}`
+    : "Waiting";
 
-socket.on("timer", (time) => {
-  timerEl.textContent = time;
-  setRing(time);
-  if (time <= 3 && time > 0) QuizSound.tick();
-});
+  if (st.phase === "round2" && st.round2Scores) {
+    $("scoreStrip").classList.remove("hidden");
+    $("scoreStrip").textContent = `${st.schoolAName}: ${st.round2Scores.a}   ·   ${st.schoolBName}: ${st.round2Scores.b}`;
+  } else {
+    $("scoreStrip").classList.add("hidden");
+  }
 
-socket.on("answeredCount", ({ count, total }) => {
-  answeredCounter.textContent = `${count} / ${total} answered`;
-  answeredCounter.classList.remove("hidden");
-});
-
-socket.on("correctAnswer", (correct) => {
-  document.querySelectorAll(".option-btn").forEach((el) => el.classList.remove("correct"));
-  const el = document.getElementById("o" + correct);
-  if (el) el.classList.add("correct");
-  QuizSound.reveal();
-});
-
-socket.on("questionChanged", (data) => {
-  questionNo.textContent = `Question ${data.currentQuestion + 1} / ${data.totalQuestions}`;
-  setProgress(data.currentQuestion, data.totalQuestions);
-  questionEl.textContent = "Waiting for host to start...";
-  document.querySelectorAll(".option-btn").forEach((el) => {
-    el.textContent = "";
-    el.classList.remove("correct");
-  });
-  answeredCounter.classList.add("hidden");
-  TOTAL_TIME = 10;
-  timerEl.textContent = TOTAL_TIME;
-  setRing(TOTAL_TIME);
-});
-
-socket.on("state", (game) => {
-  questionNo.textContent = `Question ${game.currentQuestion + 1} / ${game.totalQuestions}`;
-  setProgress(game.currentQuestion, game.totalQuestions);
-
-  if (game.questionStarted && game.question) {
-    renderQuestion(game.question);
-    answeredCounter.classList.remove("hidden");
-    answeredCounter.textContent = `${game.count ?? 0} / ${game.total ?? 4} answered`;
-
-    if (game.revealed && game.correctAnswer !== null && game.correctAnswer !== undefined) {
-      const el = document.getElementById("o" + game.correctAnswer);
-      if (el) el.classList.add("correct");
+  if (st.question && st.questionStarted) {
+    $("questionText").textContent = st.question.question;
+    if (st.optionsRevealed && st.question.options) {
+      st.question.options.forEach((o, i) => {
+        $("do" + i).textContent = o;
+        $("do" + i).classList.toggle("text-correct", st.revealed && st.correctAnswer === i);
+      });
+    } else if (st.phase !== "round2") {
+      ["do0","do1","do2","do3"].forEach((id) => { $(id).textContent = st.questionStarted ? "???" : "—"; $(id).classList.remove("text-correct"); });
+    } else {
+      ["do0","do1","do2","do3"].forEach((id) => { $(id).textContent = "—"; });
     }
   }
 
-  timerEl.textContent = game.timer;
-  setRing(game.timer);
+  // Overlays for rankings / reveal
+  if (st.phase === "segment1_ranking") {
+    showOverlay("SEGMENT 01 RANKING", (st.rankingSeg1NamesOnly || []).map((n, i) => `${i + 1}. ${n}`));
+  } else if (st.phase === "round1_final") {
+    showOverlay("ROUND 1 FINAL", (st.rankingRound1 || []).map((r, i) => `${i + 1}. ${r.name} — ${r.score} pts`));
+  } else if (st.phase === "grand_reveal" || st.phase === "finished") {
+    // handled by grandReveal event mostly
+  } else {
+    hideOverlay();
+  }
+
+  if (st.round2Stage) {
+    $("turnLabel").textContent = "Turn: " + st.round2Stage.replace(/_/g, " ");
+  } else {
+    $("turnLabel").textContent = "";
+  }
 });
 
-// Projector never shows scores/leaderboard — redirect to the dedicated Winner Page instead.
-let redirected = false;
-socket.on("quizFinished", (winner) => {
-  if (redirected) return;
-  redirected = true;
-  if (winner) sessionStorage.setItem("arwaWinner", JSON.stringify(winner));
-  window.location.href = "winner.html";
+socket.on("questionStarted", (d) => {
+  $("questionText").textContent = d.question.question;
+  ["do0","do1","do2","do3"].forEach((id) => { $(id).textContent = "???"; $(id).classList.remove("text-correct"); });
+  hideOverlay();
 });
+socket.on("optionsRevealed", (d) => {
+  (d.options || []).forEach((o, i) => { $("do" + i).textContent = o; });
+});
+socket.on("correctAnswer", (d) => {
+  if (d.correctAnswer != null) $("do" + d.correctAnswer).classList.add("text-correct");
+});
+socket.on("round2QuestionStarted", (d) => {
+  $("questionText").textContent = d.question.question;
+  $("turnLabel").textContent = `First: ${d.firstSchool}`;
+  ["do0","do1","do2","do3"].forEach((id) => { $(id).textContent = "—"; });
+  hideOverlay();
+});
+socket.on("grandReveal", (d) => {
+  const titles = { 4: "🏅 4TH PLACE", 3: "🥉 3RD PLACE", 2: "🥈 2ND PLACE", 1: "🏆 ARWA QUIZ CHAMPION" };
+  $("overlay").classList.remove("hidden");
+  $("overlay").classList.add("flex");
+  $("ovTitle").textContent = titles[d.place] || "";
+  $("ovList").innerHTML = "";
+  if (d.isChampion) {
+    $("ovChampion").classList.remove("hidden");
+    $("champName").textContent = d.school;
+    $("champPts").textContent = d.points + " points";
+  } else {
+    $("ovChampion").classList.add("hidden");
+    $("ovList").innerHTML = `<div class="text-center text-2xl">${d.school}<br><span class="text-muted text-lg">${d.points} points</span></div>`;
+  }
+});
+
+function showOverlay(title, lines) {
+  $("overlay").classList.remove("hidden");
+  $("overlay").classList.add("flex");
+  $("ovTitle").textContent = title;
+  $("ovChampion").classList.add("hidden");
+  $("ovList").innerHTML = lines.map((l) => `<div class="score-row text-lg">${l}</div>`).join("");
+}
+function hideOverlay() {
+  $("overlay").classList.add("hidden");
+  $("overlay").classList.remove("flex");
+}

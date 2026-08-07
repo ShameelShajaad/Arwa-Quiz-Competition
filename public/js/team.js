@@ -1,183 +1,134 @@
 const socket = io({ transports: ["websocket"] });
-
-let TOTAL_TIME = 10;
-const RING_CIRCUMFERENCE = 276.46;
+const RING = 276.46;
+let TOTAL = 15;
+let answered = false;
+let mySchoolId = null;
 
 const params = new URLSearchParams(window.location.search);
-const team = params.get("team") || "";
+mySchoolId = Number(params.get("schoolId"));
+if (isNaN(mySchoolId)) mySchoolId = null;
 
-const timerEl = document.getElementById("timer");
-const ringFg = document.getElementById("ringFg");
-const answeredNote = document.getElementById("answeredNote");
-const progressFill = document.getElementById("progressFill");
-const connectionBadge = document.getElementById("connectionBadge");
-const connectionText = document.getElementById("connectionText");
-const questionNo = document.getElementById("questionNo");
-const questionEl = document.getElementById("question");
+const $ = (id) => document.getElementById(id);
 
-document.getElementById("teamName").textContent = team ? "TEAM " + team : "SELECT TEAM";
-
-let answered = false;
-
-function setRing(time) {
-  const ratio = Math.max(0, Math.min(1, time / TOTAL_TIME));
-  ringFg.style.strokeDashoffset = RING_CIRCUMFERENCE * (1 - ratio);
-
-  const urgent = time <= 3 && time > 0;
-  ringFg.classList.toggle("urgent", urgent);
-  timerEl.classList.toggle("urgent", urgent);
+function setRing(t) {
+  const r = Math.max(0, Math.min(1, t / TOTAL));
+  $("ringFg").style.strokeDashoffset = RING * (1 - r);
+  $("ringFg").classList.toggle("urgent", t <= 3 && t > 0);
+  $("timer").classList.toggle("urgent", t <= 3 && t > 0);
 }
 
-function setProgress(current, total) {
+function setProgress(cur, total) {
   if (!total) return;
-  progressFill.style.width = `${((current + 1) / total) * 100}%`;
+  $("progressFill").style.width = `${((cur + 1) / total) * 100}%`;
 }
 
-function renderOptions(q) {
-  TOTAL_TIME = q.time || 10;
-
-  questionEl.textContent = q.question;
-  questionEl.classList.remove("question-in");
-  void questionEl.offsetWidth;
-  questionEl.classList.add("question-in");
-
+function disableAll() {
   for (let i = 0; i < 4; i++) {
-    const btn = document.getElementById("a" + i);
-    btn.textContent = q.options[i];
-    btn.disabled = false;
-    btn.classList.remove("selected", "correct", "wrong");
-    attachHandler(btn, i);
+    const b = $("a" + i);
+    b.disabled = true;
   }
 }
 
-function attachHandler(btn, i) {
+function attach(btn, idx) {
   btn.onclick = () => {
-    if (!team) {
-      alert("Please join a team first.");
-      return;
-    }
-    if (answered) return;
-
+    if (answered || btn.disabled) return;
+    if (window.QuizSound) QuizSound.click();
     answered = true;
-    QuizSound.click();
-
-    socket.emit("answer", {
-      team,
-      answer: i,
-      remainingTime: Number(timerEl.textContent),
-    });
-
-    document.querySelectorAll(".option-btn").forEach((b) => (b.disabled = true));
+    disableAll();
     btn.classList.add("selected");
-    answeredNote.classList.remove("hidden");
+    $("answeredNote").classList.remove("hidden");
+    socket.emit("answer", { schoolId: mySchoolId, answer: idx });
   };
 }
 
-// ---------- IDENTIFY / CONNECTION ----------
 socket.on("connect", () => {
-  socket.emit("identify", { role: "team", team });
-  if (team) socket.emit("joinTeam", team);
-  connectionBadge.classList.add("online");
-  connectionText.textContent = "Connected";
+  socket.emit("identify", { role: "team", schoolId: mySchoolId });
 });
 
-socket.on("disconnect", () => {
-  connectionBadge.classList.remove("online");
-  connectionText.textContent = "Reconnecting…";
+socket.on("timer", (t) => {
+  $("timer").textContent = t;
+  setRing(t);
+  if (t <= 0) disableAll();
 });
 
-// ---------- TIMER ----------
-socket.on("timer", (time) => {
-  timerEl.textContent = time;
-  setRing(time);
-  if (time <= 3 && time > 0) QuizSound.tick();
-});
-
-// ---------- QUESTION ----------
-socket.on("question", (q) => {
-  answered = false;
-  answeredNote.classList.add("hidden");
-  renderOptions(q);
-  QuizSound.questionStart();
-});
-
-// ---------- REVEAL ----------
-socket.on("correctAnswer", (correct) => {
-  let gotItRight = false;
-
-  document.querySelectorAll(".option-btn").forEach((btn, i) => {
-    btn.disabled = true;
-    if (i === correct) {
-      btn.classList.add("correct");
-      btn.classList.remove("wrong");
-      if (btn.classList.contains("selected")) gotItRight = true;
-    } else if (btn.classList.contains("selected")) {
-      btn.classList.add("wrong");
-    }
-  });
-
-  if (answered) {
-    if (gotItRight) QuizSound.correct();
-    else QuizSound.wrong();
-  }
-});
-
-// ---------- NEXT QUESTION ----------
-socket.on("questionChanged", (data) => {
-  questionNo.textContent = `Question ${data.currentQuestion + 1}`;
-  setProgress(data.currentQuestion, data.totalQuestions);
-  questionEl.textContent = "Waiting for Host...";
-  answeredNote.classList.add("hidden");
-  answered = false;
-
-  document.querySelectorAll(".option-btn").forEach((btn) => {
-    btn.textContent = "";
-    btn.disabled = true;
-    btn.classList.remove("selected", "correct", "wrong");
-  });
-
-  TOTAL_TIME = 10;
-  timerEl.textContent = TOTAL_TIME;
-  setRing(TOTAL_TIME);
-});
-
-socket.on("quizFinished", () => {
-  questionEl.textContent = "Quiz finished — thank you!";
-  document.querySelectorAll(".option-btn").forEach((btn) => (btn.disabled = true));
-});
-
-// ---------- RESUME (page refresh / reconnect mid-question) ----------
-socket.on("state", (game) => {
-  questionNo.textContent = `Question ${game.currentQuestion + 1}`;
-  setProgress(game.currentQuestion, game.totalQuestions);
-
-  if (!game.questionStarted || !game.question) {
-    questionEl.textContent = "Waiting for Host...";
-    TOTAL_TIME = 10;
-    timerEl.textContent = game.timer;
-    setRing(game.timer);
+socket.on("state", (st) => {
+  if (st.myName) $("teamName").textContent = st.myName;
+  if (st.phase === "round2" || st.phase === "grand_reveal" || st.phase === "finished") {
+    $("question").textContent = "Round 2 is verbal — no device answering required.";
+    disableAll();
+    $("statusNote").textContent = "Please listen to the Host.";
     return;
   }
 
-  renderOptions(game.question);
-  timerEl.textContent = game.timer;
-  setRing(game.timer);
+  const maxQ = st.questionsPerMatch || 10;
+  $("questionNo").textContent = st.questionStarted
+    ? `Question ${(st.currentQuestionInMatch || 0) + 1} / ${maxQ}`
+    : "Waiting for question…";
+  setProgress(st.currentQuestionInMatch || 0, maxQ);
 
-  const myPick = game.revealed ? game.myLastAnswer : game.myAnswer;
-  answered = myPick !== null && myPick !== undefined;
-
-  if (answered) {
-    document.querySelectorAll(".option-btn").forEach((b) => (b.disabled = true));
-    const picked = document.getElementById("a" + myPick);
-    if (picked) picked.classList.add("selected");
-    answeredNote.classList.remove("hidden");
+  if (st.question && st.questionStarted) {
+    $("question").textContent = st.question.question;
+    if (st.optionsRevealed && st.question.options) {
+      st.question.options.forEach((opt, i) => {
+        const b = $("a" + i);
+        b.textContent = opt;
+        b.disabled = answered || st.revealed || !st.timerRunning;
+        b.classList.remove("correct", "wrong");
+        if (!answered) attach(b, i);
+      });
+    } else {
+      for (let i = 0; i < 4; i++) {
+        $("a" + i).textContent = "…";
+        $("a" + i).disabled = true;
+      }
+    }
+    if (st.revealed && st.correctAnswer != null) {
+      for (let i = 0; i < 4; i++) {
+        const b = $("a" + i);
+        if (i === st.correctAnswer) b.classList.add("correct");
+        else if (b.classList.contains("selected")) b.classList.add("wrong");
+      }
+    }
+    if (st.myAnswer != null) {
+      answered = true;
+      $("a" + st.myAnswer)?.classList.add("selected");
+      $("answeredNote").classList.remove("hidden");
+      disableAll();
+    }
+  } else {
+    $("question").textContent = "Waiting for host to start the question…";
+    for (let i = 0; i < 4; i++) {
+      $("a" + i).textContent = "—";
+      $("a" + i).disabled = true;
+      $("a" + i).classList.remove("selected", "correct", "wrong");
+    }
+    answered = false;
+    $("answeredNote").classList.add("hidden");
   }
+});
 
-  if (game.revealed && game.correctAnswer !== null && game.correctAnswer !== undefined) {
-    document.querySelectorAll(".option-btn").forEach((btn, i) => {
-      btn.disabled = true;
-      if (i === game.correctAnswer) btn.classList.add("correct");
-      else if (btn.classList.contains("selected")) btn.classList.add("wrong");
-    });
+socket.on("questionStarted", () => {
+  answered = false;
+  $("answeredNote").classList.add("hidden");
+  for (let i = 0; i < 4; i++) {
+    $("a" + i).classList.remove("selected", "correct", "wrong");
+    $("a" + i).textContent = "…";
+    $("a" + i).disabled = true;
   }
+});
+
+socket.on("optionsRevealed", (d) => {
+  (d.options || []).forEach((opt, i) => {
+    const b = $("a" + i);
+    b.textContent = opt;
+    b.disabled = false;
+    attach(b, i);
+  });
+});
+
+socket.on("timerFinished", () => disableAll());
+socket.on("correctAnswer", () => disableAll());
+socket.on("questionChanged", () => {
+  answered = false;
+  $("answeredNote").classList.add("hidden");
 });

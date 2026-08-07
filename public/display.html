@@ -5,51 +5,66 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="theme-color" content="#0B0908" />
 <link rel="icon" href="assets/logo.png" />
-<title>ARWA Quiz Display</title>
+<title>Projector | ARWA Quiz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="js/tailwind-config.js"></script>
 <link rel="stylesheet" href="css/style.css" />
 </head>
-<body class="font-body min-h-screen flex flex-col items-center justify-center px-6 py-10 relative z-10 text-center">
+<body class="font-body min-h-screen flex flex-col items-center justify-center px-6 py-10 relative z-10">
 
-  <header class="mb-6 animate-in">
-    <img src="assets/logo.png" alt="ARWA" class="w-16 h-16 mx-auto mb-3 object-contain float-slow" />
-    <h1 class="font-display text-3xl sm:text-5xl gold-text tracking-widest">ARWA QUIZ COMPETITION</h1>
-    <div class="ornament mt-4"><span class="diamond"></span></div>
+  <header class="text-center mb-6">
+    <img src="assets/logo.png" alt="ARWA" class="w-16 h-16 mx-auto mb-2 object-contain opacity-90" onerror="this.style.display='none'" />
+    <h1 class="font-display text-2xl sm:text-3xl gold-text tracking-wide">ARWA QUIZ COMPETITION</h1>
+    <p id="phaseLabel" class="text-muted text-sm mt-1">Waiting…</p>
   </header>
 
-  <div class="w-full max-w-4xl progress-track mb-6"><div id="progressFill" class="progress-fill"></div></div>
-
-  <section class="w-full max-w-4xl glass p-8 sm:p-12 animate-in">
-    <div class="flex items-center justify-center gap-4 mb-2">
-      <span id="questionNo" class="text-muted text-sm tracking-widest uppercase">Question 1</span>
-      <span id="answeredCounter" class="answered-counter hidden">0 / 4 answered</span>
+  <main class="w-full max-w-4xl glass p-8 sm:p-12 text-center animate-in">
+    <div id="vsLine" class="text-xl gold-text mb-4 font-display">— vs —</div>
+    <div class="flex items-center justify-center gap-6 mb-6">
+      <div class="timer-ring-wrap w-24 h-24">
+        <svg viewBox="0 0 100 100" width="96" height="96">
+          <defs>
+            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#F4D03F" />
+              <stop offset="100%" stop-color="#D4AF37" />
+            </linearGradient>
+          </defs>
+          <circle class="timer-ring-bg" cx="50" cy="50" r="44" stroke-width="8"></circle>
+          <circle id="ringFg" class="timer-ring-fg" cx="50" cy="50" r="44" stroke-width="8"
+            stroke-dasharray="276.46" stroke-dashoffset="0"></circle>
+        </svg>
+        <span id="timer" class="timer-value text-2xl">15</span>
+      </div>
+      <div class="text-left">
+        <p id="qMeta" class="text-xs text-muted tracking-widest uppercase">Question</p>
+        <p id="turnLabel" class="text-sm text-gold-soft"></p>
+      </div>
     </div>
 
-    <h2 id="question" class="font-display text-2xl sm:text-4xl leading-relaxed my-6">Waiting for host to start...</h2>
+    <p id="questionText" class="text-2xl sm:text-3xl font-medium leading-relaxed mb-8">Waiting for the Host…</p>
 
-    <div id="options" class="grid sm:grid-cols-2 gap-5 mb-10 text-left">
-      <div class="option-btn text-lg sm:text-xl" id="o0" style="cursor:default;"></div>
-      <div class="option-btn text-lg sm:text-xl" id="o1" style="cursor:default;"></div>
-      <div class="option-btn text-lg sm:text-xl" id="o2" style="cursor:default;"></div>
-      <div class="option-btn text-lg sm:text-xl" id="o3" style="cursor:default;"></div>
+    <div id="optionsGrid" class="grid sm:grid-cols-2 gap-4 mb-6">
+      <div class="glass-soft px-5 py-4 text-lg" id="do0">—</div>
+      <div class="glass-soft px-5 py-4 text-lg" id="do1">—</div>
+      <div class="glass-soft px-5 py-4 text-lg" id="do2">—</div>
+      <div class="glass-soft px-5 py-4 text-lg" id="do3">—</div>
     </div>
 
-    <div class="timer-ring-wrap w-40 h-40 mx-auto">
-      <svg viewBox="0 0 100 100" width="160" height="160">
-        <defs>
-          <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#F4D03F" />
-            <stop offset="100%" stop-color="#D4AF37" />
-          </linearGradient>
-        </defs>
-        <circle class="timer-ring-bg" cx="50" cy="50" r="44" stroke-width="6"></circle>
-        <circle id="ringFg" class="timer-ring-fg" cx="50" cy="50" r="44" stroke-width="6"
-          stroke-dasharray="276.46" stroke-dashoffset="0"></circle>
-      </svg>
-      <span id="timer" class="timer-value text-5xl">10</span>
+    <div id="scoreStrip" class="hidden text-lg gold-text mt-4"></div>
+  </main>
+
+  <!-- Ranking / Reveal overlay -->
+  <section id="overlay" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-md px-6">
+    <div class="glass p-10 max-w-2xl w-full text-center animate-in">
+      <h2 id="ovTitle" class="font-display text-3xl gold-text mb-8"></h2>
+      <div id="ovList" class="grid gap-4 text-left text-xl"></div>
+      <div id="ovChampion" class="hidden mt-8">
+        <p class="text-5xl mb-4">🏆</p>
+        <p id="champName" class="font-display text-4xl gold-text"></p>
+        <p id="champPts" class="text-2xl text-muted mt-2"></p>
+      </div>
     </div>
   </section>
 

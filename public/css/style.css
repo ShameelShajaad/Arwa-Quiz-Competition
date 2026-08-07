@@ -558,3 +558,28 @@ body::before {
   border-color: var(--gold);
   box-shadow: 0 10px 26px rgba(212, 175, 55, 0.3);
 }
+
+/* Team answer buttons */
+.option-btn {
+  background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  border: 1px solid rgba(212,175,55,0.28);
+  color: var(--ink);
+  padding: 0.9rem 1.2rem;
+  border-radius: 0.75rem;
+  text-align: left;
+  font-size: 1rem;
+  transition: all 0.2s;
+  cursor: pointer;
+  width: 100%;
+}
+.option-btn:hover:not(:disabled) {
+  border-color: var(--gold);
+  background: rgba(212,175,55,0.12);
+}
+.option-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.option-btn.selected { border-color: var(--gold-bright); box-shadow: 0 0 0 1px var(--gold); }
+.option-btn.correct { border-color: var(--correct) !important; color: var(--correct); }
+.option-btn.wrong { border-color: var(--wrong) !important; color: var(--wrong); }
+
+.bg-brown-mid { background-color: var(--brown-mid); }
+.text-ink { color: var(--ink); }
