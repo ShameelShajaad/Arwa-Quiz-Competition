@@ -61,3 +61,16 @@ if (closeModal) {
     teamModal.classList.remove("flex");
   };
 }
+
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen?.() || document.documentElement.webkitRequestFullscreen?.();
+  } else {
+    document.exitFullscreen?.() || document.webkitExitFullscreen?.();
+  }
+}
+document.getElementById("fsBtn")?.addEventListener("click", () => {
+  if (window.QuizSound) QuizSound.click();
+  toggleFullscreen();
+});

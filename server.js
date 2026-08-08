@@ -133,6 +133,8 @@ function buildPublicState(role, teamId) {
       ...base,
       answerOrder: game.answerOrder,
       answers: game.answers,
+      aAnswered: game.activeA != null && game.answers[game.activeA] != null,
+      bAnswered: game.activeB != null && game.answers[game.activeB] != null,
       rankingSeg1: game.rankingSeg1.map((id) => ({
         id, name: schoolName(id), score: schoolById(id)?.scoreSeg1 ?? 0,
       })),
@@ -319,10 +321,20 @@ io.on("connection", (socket) => {
   socket.on("revealOptions", () => {
     if (socket.role !== "host") return;
     if (!game.questionStarted || game.optionsRevealed) return;
+    // Allowed in segment1, segment2, AND round2 (to show options on projector)
+    if (!["segment1", "segment2", "round2"].includes(game.phase)) return;
     game.optionsRevealed = true;
     const q = getCurrentQuestion();
-    emitToAll("optionsRevealed", { options: q.options, currentQuestionInMatch: game.currentQuestionInMatch });
-    startCountdown(15);
+    emitToAll("optionsRevealed", {
+      options: q.options,
+      currentQuestionInMatch: game.currentQuestionInMatch,
+      phase: game.phase,
+    });
+    // Round 1: start the 15s answering timer automatically
+    // Round 2: host controls timer separately with START TIMER
+    if (game.phase === "segment1" || game.phase === "segment2") {
+      startCountdown(15);
+    }
     broadcastState();
   });
 
@@ -535,6 +547,7 @@ io.on("connection", (socket) => {
     if (socket.role !== "host") return;
     if (game.phase !== "round2") return;
     game.questionStarted = true;
+    game.optionsRevealed = false;
     game.revealed = false;
     game.round2Stage = "first_individual";
     clearTimer();

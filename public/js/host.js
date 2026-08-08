@@ -69,6 +69,7 @@ $("nextQBtn")?.addEventListener("click", () => { clickSound(); socket.emit("next
 
 // R2 controls
 $("r2StartQBtn")?.addEventListener("click", () => { clickSound(); socket.emit("round2StartQuestion"); });
+$("r2RevealOptBtn")?.addEventListener("click", () => { clickSound(); socket.emit("revealOptions"); });
 $("r2TimerBtn")?.addEventListener("click", () => { clickSound(); socket.emit("round2StartTimer"); });
 $("r2FirstCorrect")?.addEventListener("click", () => { clickSound(); socket.emit("round2Result", { type: "first_correct" }); });
 $("r2FirstFailed")?.addEventListener("click", () => { clickSound(); socket.emit("round2Result", { type: "first_failed" }); });
@@ -189,6 +190,7 @@ socket.on("questionStarted", (d) => {
 socket.on("optionsRevealed", (d) => {
   (d.options || []).forEach((opt, i) => { if ($("ho"+i)) $("ho"+i).textContent = opt; });
   if ($("revealOptBtn")) $("revealOptBtn").disabled = true;
+  if ($("r2RevealOptBtn")) $("r2RevealOptBtn").disabled = true;
   if ($("revealAnsBtn")) $("revealAnsBtn").disabled = false;
 });
 socket.on("correctAnswer", (d) => {
@@ -204,7 +206,12 @@ socket.on("answerStatus", (d) => {
 socket.on("round2QuestionStarted", (d) => {
   if ($("questionText")) $("questionText").textContent = d.question.question;
   if ($("turnInfo")) $("turnInfo").textContent = `First: ${d.firstSchool} · Second: ${d.secondSchool}`;
-  ["ho0","ho1","ho2","ho3"].forEach((id) => { if ($(id)) $(id).textContent = "— (verbal)"; });
+  ["ho0","ho1","ho2","ho3"].forEach((id) => {
+    if ($(id)) { $(id).textContent = "???"; $(id).classList.remove("text-correct"); }
+  });
+  if ($("r2RevealOptBtn")) $("r2RevealOptBtn").disabled = false;
+  if ($("r2StartQBtn")) $("r2StartQBtn").disabled = true;
+  if ($("correctAnswer")) $("correctAnswer").textContent = "";
 });
 socket.on("round2AnswerResult", (d) => {
   if ($("correctAnswer")) $("correctAnswer").textContent = `${d.type} → ${d.points || 0} pts ${d.awardedTo ? "to " + d.awardedTo : ""}`;
@@ -279,6 +286,16 @@ function render(st) {
     if ($("schoolsVs")) $("schoolsVs").textContent = `${st.schoolAName || "—"}  vs  ${st.schoolBName || "—"}`;
     if ($("statusA")) $("statusA").textContent = st.schoolAName || "—";
     if ($("statusB")) $("statusB").textContent = st.schoolBName || "—";
+    // Answer status — prefer explicit flags, fall back to answers map (keys may be strings)
+    const ans = st.answers || {};
+    const aDone = st.aAnswered === true || (st.activeA != null && (ans[st.activeA] != null || ans[String(st.activeA)] != null));
+    const bDone = st.bAnswered === true || (st.activeB != null && (ans[st.activeB] != null || ans[String(st.activeB)] != null));
+    if ($("stateA")) $("stateA").textContent = aDone ? "✅ Answered" : "⏳ Waiting";
+    if ($("stateB")) $("stateB").textContent = bDone ? "✅ Answered" : "⏳ Waiting";
+    if (!st.questionStarted) {
+      if ($("stateA")) $("stateA").textContent = "⏳ Waiting";
+      if ($("stateB")) $("stateB").textContent = "⏳ Waiting";
+    }
     const isR2 = st.phase === "round2";
     $("r1Controls")?.classList.toggle("hidden", isR2);
     $("r2Controls")?.classList.toggle("hidden", !isR2);
@@ -289,6 +306,9 @@ function render(st) {
       if ($("revealOptBtn")) $("revealOptBtn").disabled = !st.questionStarted || st.optionsRevealed;
       if ($("revealAnsBtn")) $("revealAnsBtn").disabled = !st.optionsRevealed || st.revealed;
       if ($("nextQBtn")) $("nextQBtn").disabled = !st.revealed;
+    } else {
+      if ($("r2StartQBtn")) $("r2StartQBtn").disabled = !!st.questionStarted;
+      if ($("r2RevealOptBtn")) $("r2RevealOptBtn").disabled = !st.questionStarted || st.optionsRevealed;
     }
     if (st.round2Stage && $("turnInfo"))
       $("turnInfo").textContent = "Stage: " + st.round2Stage.replace(/_/g, " ");
@@ -321,3 +341,14 @@ function render(st) {
       (st.grandRevealStep || 0) >= (st.finalRanking?.length || 4) ? "FINISHED" : "NEXT REVEAL →";
   }
 }
+
+
+// Fullscreen
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen?.() || document.documentElement.webkitRequestFullscreen?.();
+  } else {
+    document.exitFullscreen?.() || document.webkitExitFullscreen?.();
+  }
+}
+$("fsBtn")?.addEventListener("click", () => { clickSound(); toggleFullscreen(); });

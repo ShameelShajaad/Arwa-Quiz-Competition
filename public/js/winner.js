@@ -13,3 +13,13 @@ socket.on("grandReveal", (d) => {
     document.getElementById("winnerPts").textContent = d.points + " points";
   }
 });
+
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen?.() || document.documentElement.webkitRequestFullscreen?.();
+  } else {
+    document.exitFullscreen?.() || document.webkitExitFullscreen?.();
+  }
+}
+document.getElementById("fsBtn")?.addEventListener("click", toggleFullscreen);

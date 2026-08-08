@@ -29,6 +29,7 @@
     <div class="flex items-center gap-3 flex-wrap">
       <span id="phaseBadge" class="text-xs px-3 py-1 rounded-full border border-gold/40 text-gold-soft">SETUP</span>
       <span id="connectionBadge" class="connection-badge"><span class="connection-dot"></span><span id="connectionText">Connecting…</span></span>
+      <button id="fsBtn" class="btn-outline text-xs" title="Fullscreen">⛶ FULLSCREEN</button>
       <a href="index.html" class="btn-outline text-xs">EXIT</a>
     </div>
   </header>
@@ -100,6 +101,7 @@
 
       <div id="r2Controls" class="hidden flex flex-wrap gap-2 mb-4">
         <button id="r2StartQBtn" class="btn-gold">▶ START QUESTION</button>
+        <button id="r2RevealOptBtn" class="btn-outline" disabled>REVEAL OPTIONS</button>
         <button id="r2TimerBtn" class="btn-outline">START TIMER 15s</button>
         <button id="r2FirstCorrect" class="btn-gold">FIRST SCHOOL CORRECT +10</button>
         <button id="r2FirstFailed" class="btn-outline">FIRST SCHOOL FAILED</button>

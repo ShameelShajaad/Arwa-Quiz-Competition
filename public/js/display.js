@@ -35,10 +35,12 @@ socket.on("state", (st) => {
         $("do" + i).textContent = o;
         $("do" + i).classList.toggle("text-correct", st.revealed && st.correctAnswer === i);
       });
-    } else if (st.phase !== "round2") {
-      ["do0","do1","do2","do3"].forEach((id) => { $(id).textContent = st.questionStarted ? "???" : "—"; $(id).classList.remove("text-correct"); });
     } else {
-      ["do0","do1","do2","do3"].forEach((id) => { $(id).textContent = "—"; });
+      // Options hidden until REVEAL OPTIONS (works for Round 1 and Round 2)
+      ["do0","do1","do2","do3"].forEach((id) => {
+        $(id).textContent = st.questionStarted ? "???" : "—";
+        $(id).classList.remove("text-correct");
+      });
     }
   }
 
@@ -74,7 +76,7 @@ socket.on("correctAnswer", (d) => {
 socket.on("round2QuestionStarted", (d) => {
   $("questionText").textContent = d.question.question;
   $("turnLabel").textContent = `First: ${d.firstSchool}`;
-  ["do0","do1","do2","do3"].forEach((id) => { $(id).textContent = "—"; });
+  ["do0","do1","do2","do3"].forEach((id) => { $(id).textContent = "???"; $(id).classList.remove("text-correct"); });
   hideOverlay();
 });
 socket.on("grandReveal", (d) => {
@@ -104,3 +106,13 @@ function hideOverlay() {
   $("overlay").classList.add("hidden");
   $("overlay").classList.remove("flex");
 }
+
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen?.() || document.documentElement.webkitRequestFullscreen?.();
+  } else {
+    document.exitFullscreen?.() || document.webkitExitFullscreen?.();
+  }
+}
+document.getElementById("fsBtn")?.addEventListener("click", toggleFullscreen);
