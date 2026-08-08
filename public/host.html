@@ -11,150 +11,142 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="js/tailwind-config.js"></script>
 <link rel="stylesheet" href="css/style.css" />
+<style>
+  select, input[type="text"], input[type="number"] {
+    background: #2e2013; border: 1px solid rgba(212,175,55,0.3);
+    color: #f5efe6; border-radius: 0.5rem; padding: 0.5rem 0.75rem; width: 100%;
+  }
+</style>
 </head>
 <body class="font-body min-h-screen px-4 py-6 relative z-10">
+<div class="max-w-7xl mx-auto">
 
-  <div class="max-w-7xl mx-auto">
-
-    <header class="flex flex-wrap items-center justify-between gap-3 mb-5">
-      <div>
-        <h1 class="font-display text-2xl sm:text-3xl gold-text tracking-wide">HOST DASHBOARD</h1>
-        <p class="text-muted text-sm mt-1">ARWA Quiz Competition — Control Panel</p>
-      </div>
-      <div class="flex items-center gap-3">
-        <span id="phaseBadge" class="text-xs px-3 py-1 rounded-full border border-gold/40 text-gold-soft">SETUP</span>
-        <span id="connectionBadge" class="connection-badge"><span class="connection-dot"></span><span id="connectionText">Connecting…</span></span>
-        <a href="index.html" class="btn-outline text-xs">EXIT</a>
-      </div>
-    </header>
-
-    <!-- SETUP PANEL -->
-    <section id="setupPanel" class="glass p-6 mb-6">
-      <h2 class="font-display text-xl gold-text mb-4">ENTER 8 SCHOOL NAMES</h2>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-4" id="schoolInputs">
-        <!-- filled by JS -->
-      </div>
-      <button id="saveSchoolsBtn" class="btn-gold">SAVE SCHOOLS</button>
-      <button id="startSeg1Btn" class="btn-gold ml-2" disabled>START SEGMENT 01</button>
-    </section>
-
-    <!-- MAIN COMPETITION PANEL -->
-    <div id="compPanel" class="hidden grid lg:grid-cols-3 gap-6">
-
-      <section class="lg:col-span-2 glass p-6">
-        <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
-          <div>
-            <span id="matchInfo" class="font-display text-gold-soft text-sm tracking-widest uppercase">Match 1</span>
-            <span id="questionNo" class="ml-3 text-sm text-muted">Q 1 / 10</span>
-          </div>
-          <div class="timer-ring-wrap w-16 h-16">
-            <svg viewBox="0 0 100 100" width="64" height="64">
-              <defs>
-                <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#F4D03F" />
-                  <stop offset="100%" stop-color="#D4AF37" />
-                </linearGradient>
-              </defs>
-              <circle class="timer-ring-bg" cx="50" cy="50" r="44" stroke-width="8"></circle>
-              <circle id="ringFg" class="timer-ring-fg" cx="50" cy="50" r="44" stroke-width="8"
-                stroke-dasharray="276.46" stroke-dashoffset="0"></circle>
-            </svg>
-            <span id="timer" class="timer-value text-lg">15</span>
-          </div>
-        </div>
-
-        <p id="schoolsVs" class="text-lg font-medium mb-3 gold-text">— vs —</p>
-        <p id="questionText" class="text-xl sm:text-2xl font-medium leading-relaxed mb-5">Waiting…</p>
-
-        <div class="grid sm:grid-cols-2 gap-3 mb-5" id="hostOptions">
-          <div class="glass-soft px-4 py-3 text-sm text-muted" id="ho0">—</div>
-          <div class="glass-soft px-4 py-3 text-sm text-muted" id="ho1">—</div>
-          <div class="glass-soft px-4 py-3 text-sm text-muted" id="ho2">—</div>
-          <div class="glass-soft px-4 py-3 text-sm text-muted" id="ho3">—</div>
-        </div>
-
-        <!-- Round 1 controls -->
-        <div id="r1Controls" class="flex flex-wrap gap-2 mb-4">
-          <button id="startQBtn" class="btn-gold">▶ START QUESTION</button>
-          <button id="revealOptBtn" class="btn-outline" disabled>REVEAL OPTIONS</button>
-          <button id="revealAnsBtn" class="btn-outline" disabled>REVEAL ANSWER</button>
-          <button id="nextQBtn" class="btn-outline" disabled>NEXT QUESTION →</button>
-        </div>
-
-        <!-- Round 2 controls -->
-        <div id="r2Controls" class="hidden flex flex-wrap gap-2 mb-4">
-          <button id="r2StartQBtn" class="btn-gold">▶ START QUESTION</button>
-          <button id="r2TimerBtn" class="btn-outline">START TIMER 15s</button>
-          <button id="r2FirstCorrect" class="btn-gold">FIRST SCHOOL CORRECT +10</button>
-          <button id="r2FirstFailed" class="btn-outline">FIRST SCHOOL FAILED</button>
-          <button id="r2SecondCorrect" class="btn-gold">SECOND SCHOOL CORRECT +8</button>
-          <button id="r2SecondFailed" class="btn-outline">SECOND SCHOOL FAILED</button>
-          <button id="r2FellowCorrect" class="btn-gold">FELLOW MEMBERS CORRECT +5</button>
-          <button id="r2NoPoints" class="btn-outline">NO POINTS</button>
-          <button id="r2NextQBtn" class="btn-outline">NEXT QUESTION →</button>
-        </div>
-
-        <p id="correctAnswer" class="mt-3 text-correct font-semibold text-sm"></p>
-        <p id="turnInfo" class="text-muted text-sm mt-2"></p>
-      </section>
-
-      <section class="flex flex-col gap-5">
-        <div class="glass p-5">
-          <h2 class="font-display text-lg gold-text mb-3">ANSWER STATUS</h2>
-          <div id="answerStatus" class="grid gap-2 text-sm">
-            <div class="status-pill"><span id="statusA">—</span><span class="pill-state" id="stateA">⏳</span></div>
-            <div class="status-pill"><span id="statusB">—</span><span class="pill-state" id="stateB">⏳</span></div>
-          </div>
-        </div>
-
-        <div class="glass p-5">
-          <h2 class="font-display text-lg gold-text mb-3">SCORES</h2>
-          <div id="scoreBoard" class="grid gap-1 text-sm max-h-64 overflow-y-auto"></div>
-        </div>
-
-        <div class="glass p-5">
-          <h2 class="font-display text-lg gold-text mb-3">TRANSITION</h2>
-          <div class="grid gap-2">
-            <button id="startSeg2Btn" class="btn-outline text-sm hidden">START SEGMENT 02</button>
-            <button id="goRound2Btn" class="btn-outline text-sm hidden">GO TO ROUND 2 PAIRING</button>
-            <button id="grandNextBtn" class="btn-gold text-sm hidden">NEXT REVEAL →</button>
-            <button id="resetBtn" class="btn-outline text-xs mt-2">RESET COMPETITION</button>
-          </div>
-        </div>
-      </section>
+  <header class="flex flex-wrap items-center justify-between gap-3 mb-5">
+    <div>
+      <h1 class="font-display text-2xl sm:text-3xl gold-text tracking-wide">HOST DASHBOARD</h1>
+      <p class="text-muted text-sm mt-1">ARWA Quiz Competition — Control Panel</p>
     </div>
+    <div class="flex items-center gap-3 flex-wrap">
+      <span id="phaseBadge" class="text-xs px-3 py-1 rounded-full border border-gold/40 text-gold-soft">SETUP</span>
+      <span id="connectionBadge" class="connection-badge"><span class="connection-dot"></span><span id="connectionText">Connecting…</span></span>
+      <a href="index.html" class="btn-outline text-xs">EXIT</a>
+    </div>
+  </header>
 
-    <!-- SEGMENT / RANKING OVERLAY -->
-    <section id="rankingPanel" class="hidden glass p-8 mt-6 text-center">
-      <h2 id="rankingTitle" class="font-display text-2xl gold-text mb-6">RANKING</h2>
-      <div id="rankingList" class="grid gap-3 max-w-lg mx-auto text-left"></div>
-      <div class="mt-6" id="rankingActions"></div>
-    </section>
+  <!-- SETUP -->
+  <section id="setupPanel" class="glass p-6 mb-6">
+    <h2 class="font-display text-xl gold-text mb-3">SETUP SCHOOLS</h2>
+    <div class="flex flex-wrap items-end gap-4 mb-4">
+      <div>
+        <label class="text-xs text-muted block mb-1">Number of schools (2–8)</label>
+        <input type="number" id="schoolCount" min="2" max="8" value="8" class="w-24" />
+      </div>
+      <button id="buildInputsBtn" class="btn-outline text-sm">BUILD NAME FIELDS</button>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-4" id="schoolInputs"></div>
+    <div class="flex flex-wrap gap-2">
+      <button id="saveSchoolsBtn" class="btn-gold">SAVE SCHOOLS</button>
+      <button id="goSeg1PairBtn" class="btn-gold" disabled>SET SEGMENT 01 PAIRINGS →</button>
+      <button id="testR2Btn" class="btn-outline text-sm">TEST ROUND 2 (skip ahead)</button>
+    </div>
+    <p class="text-muted text-xs mt-3">After saving, schools can join from the home page. Use “Test Round 2” to jump straight to Round 2 pairing with the current schools.</p>
+  </section>
 
-    <!-- ROUND 2 PAIRING PANEL -->
-    <section id="pairingPanel" class="hidden glass p-8 mt-6">
-      <h2 class="font-display text-2xl gold-text mb-4 text-center">ROUND 2 — MANUAL PAIRING</h2>
-      <p class="text-muted text-sm text-center mb-6">Select two schools for Match 1 and the remaining two for Match 2 (from Top 4).</p>
-      <div id="qualifierList" class="grid sm:grid-cols-2 gap-3 mb-6"></div>
-      <div class="grid sm:grid-cols-2 gap-6 mb-6">
+  <!-- SEG1 / SEG2 / R2 PAIRING PANEL (shared UI) -->
+  <section id="pairingPanel" class="hidden glass p-6 mb-6">
+    <h2 id="pairingTitle" class="font-display text-xl gold-text mb-2 text-center">PAIRINGS</h2>
+    <p id="pairingHint" class="text-muted text-sm text-center mb-4"></p>
+    <div id="pairingSchools" class="flex flex-wrap gap-2 justify-center mb-4"></div>
+    <div id="pairRows" class="grid gap-3 max-w-xl mx-auto mb-4"></div>
+    <div class="flex flex-wrap gap-2 justify-center">
+      <button id="addPairBtn" class="btn-outline text-sm">+ ADD MATCH</button>
+      <button id="autoPairBtn" class="btn-outline text-sm hidden">AUTO PAIR SEQUENTIAL</button>
+      <button id="confirmPairBtn" class="btn-gold">CONFIRM & START</button>
+    </div>
+  </section>
+
+  <!-- COMPETITION -->
+  <div id="compPanel" class="hidden grid lg:grid-cols-3 gap-6">
+    <section class="lg:col-span-2 glass p-6">
+      <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
         <div>
-          <h3 class="text-gold-soft mb-2">Match 1</h3>
-          <select id="m1a" class="w-full bg-brown-mid border border-gold/30 rounded px-3 py-2 text-ink mb-2"></select>
-          <select id="m1b" class="w-full bg-brown-mid border border-gold/30 rounded px-3 py-2 text-ink"></select>
+          <span id="matchInfo" class="font-display text-gold-soft text-sm tracking-widest uppercase">Match 1</span>
+          <span id="questionNo" class="ml-3 text-sm text-muted">Q 1 / 10</span>
         </div>
-        <div>
-          <h3 class="text-gold-soft mb-2">Match 2</h3>
-          <select id="m2a" class="w-full bg-brown-mid border border-gold/30 rounded px-3 py-2 text-ink mb-2"></select>
-          <select id="m2b" class="w-full bg-brown-mid border border-gold/30 rounded px-3 py-2 text-ink"></select>
+        <div class="timer-ring-wrap w-16 h-16">
+          <svg viewBox="0 0 100 100" width="64" height="64">
+            <defs><linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#F4D03F"/><stop offset="100%" stop-color="#D4AF37"/></linearGradient></defs>
+            <circle class="timer-ring-bg" cx="50" cy="50" r="44" stroke-width="8"></circle>
+            <circle id="ringFg" class="timer-ring-fg" cx="50" cy="50" r="44" stroke-width="8" stroke-dasharray="276.46" stroke-dashoffset="0"></circle>
+          </svg>
+          <span id="timer" class="timer-value text-lg">15</span>
         </div>
       </div>
-      <button id="confirmPairingBtn" class="btn-gold">CONFIRM PAIRINGS & START ROUND 2</button>
+      <p id="schoolsVs" class="text-lg font-medium mb-3 gold-text">— vs —</p>
+      <p id="questionText" class="text-xl sm:text-2xl font-medium leading-relaxed mb-5">Waiting…</p>
+      <div class="grid sm:grid-cols-2 gap-3 mb-5" id="hostOptions">
+        <div class="glass-soft px-4 py-3 text-sm text-muted" id="ho0">—</div>
+        <div class="glass-soft px-4 py-3 text-sm text-muted" id="ho1">—</div>
+        <div class="glass-soft px-4 py-3 text-sm text-muted" id="ho2">—</div>
+        <div class="glass-soft px-4 py-3 text-sm text-muted" id="ho3">—</div>
+      </div>
+
+      <div id="r1Controls" class="flex flex-wrap gap-2 mb-4">
+        <button id="startQBtn" class="btn-gold">▶ START QUESTION</button>
+        <button id="revealOptBtn" class="btn-outline" disabled>REVEAL OPTIONS</button>
+        <button id="revealAnsBtn" class="btn-outline" disabled>REVEAL ANSWER</button>
+        <button id="nextQBtn" class="btn-outline" disabled>NEXT QUESTION →</button>
+      </div>
+
+      <div id="r2Controls" class="hidden flex flex-wrap gap-2 mb-4">
+        <button id="r2StartQBtn" class="btn-gold">▶ START QUESTION</button>
+        <button id="r2TimerBtn" class="btn-outline">START TIMER 15s</button>
+        <button id="r2FirstCorrect" class="btn-gold">FIRST SCHOOL CORRECT +10</button>
+        <button id="r2FirstFailed" class="btn-outline">FIRST SCHOOL FAILED</button>
+        <button id="r2SecondCorrect" class="btn-gold">SECOND SCHOOL CORRECT +8</button>
+        <button id="r2SecondFailed" class="btn-outline">SECOND SCHOOL FAILED</button>
+        <button id="r2FellowCorrect" class="btn-gold">FELLOW MEMBERS CORRECT +5</button>
+        <button id="r2NoPoints" class="btn-outline">NO POINTS</button>
+        <button id="r2NextQBtn" class="btn-outline">NEXT QUESTION →</button>
+      </div>
+      <p id="correctAnswer" class="mt-3 text-correct font-semibold text-sm"></p>
+      <p id="turnInfo" class="text-muted text-sm mt-2"></p>
     </section>
 
+    <section class="flex flex-col gap-5">
+      <div class="glass p-5">
+        <h2 class="font-display text-lg gold-text mb-3">ANSWER STATUS</h2>
+        <div id="answerStatus" class="grid gap-2 text-sm">
+          <div class="status-pill"><span id="statusA">—</span><span class="pill-state" id="stateA">⏳</span></div>
+          <div class="status-pill"><span id="statusB">—</span><span class="pill-state" id="stateB">⏳</span></div>
+        </div>
+      </div>
+      <div class="glass p-5">
+        <h2 class="font-display text-lg gold-text mb-3">SCORES</h2>
+        <div id="scoreBoard" class="grid gap-1 text-sm max-h-64 overflow-y-auto"></div>
+      </div>
+      <div class="glass p-5">
+        <h2 class="font-display text-lg gold-text mb-3">ACTIONS</h2>
+        <div class="grid gap-2">
+          <button id="goSeg2PairBtn" class="btn-outline text-sm hidden">SET SEGMENT 02 PAIRINGS →</button>
+          <button id="goRound2Btn" class="btn-outline text-sm hidden">GO TO ROUND 2 PAIRING</button>
+          <button id="grandNextBtn" class="btn-gold text-sm hidden">NEXT REVEAL →</button>
+          <button id="resetBtn" class="btn-outline text-xs mt-2">RESET COMPETITION</button>
+        </div>
+      </div>
+    </section>
   </div>
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="js/sound.js"></script>
-  <script src="js/host.js"></script>
+  <!-- RANKING -->
+  <section id="rankingPanel" class="hidden glass p-8 mt-6 text-center">
+    <h2 id="rankingTitle" class="font-display text-2xl gold-text mb-6">RANKING</h2>
+    <div id="rankingList" class="grid gap-3 max-w-lg mx-auto text-left"></div>
+    <div class="mt-6" id="rankingActions"></div>
+  </section>
+
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/sound.js"></script>
+<script src="js/host.js"></script>
 </body>
 </html>

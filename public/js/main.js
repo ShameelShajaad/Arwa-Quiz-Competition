@@ -10,58 +10,48 @@ if (displayBtn) displayBtn.onclick = () => { if (window.QuizSound) QuizSound.cli
 
 let socket = null;
 
-if (teamBtn) {
-  teamBtn.onclick = () => {
-    if (window.QuizSound) QuizSound.click();
-    teamModal.classList.remove("hidden");
-    teamModal.classList.add("flex");
-    // connect briefly to get school names
-    if (!socket) {
-      socket = io({ transports: ["websocket"] });
-      socket.on("connect", () => socket.emit("identify", { role: "display" }));
-      socket.on("state", (st) => {
-        if (!st.schools && !st.rankingSeg1NamesOnly) return;
-        // request full via a lightweight approach: show from last known
-      });
-    }
-    // Also try fetching names via a simple poll if host already set them
-    fetchSchools();
-  };
-}
-
-function fetchSchools() {
-  // Use socket state if available; otherwise show placeholder
-  if (!socket) {
-    socket = io({ transports: ["websocket"] });
-    socket.on("connect", () => {
-      socket.emit("identify", { role: "display" });
-    });
-    socket.on("state", (st) => {
-      renderSchoolButtons(st);
-    });
-  } else {
+function ensureSocket() {
+  if (socket) return socket;
+  socket = io({ transports: ["websocket"] });
+  socket.on("connect", () => {
     socket.emit("identify", { role: "display" });
-  }
+  });
+  socket.on("state", (st) => {
+    renderSchoolButtons(st);
+  });
+  return socket;
 }
 
 function renderSchoolButtons(st) {
-  const schools = st.schools || [];
-  if (!schools.length || !schools.some(s => s.name)) {
-    schoolList.innerHTML = '<p class="text-muted text-sm text-center">Waiting for Host to set the 8 school names…</p>';
+  if (!schoolList) return;
+  const schools = (st.schools || []).filter((s) => s.name && String(s.name).trim());
+  if (!schools.length) {
+    schoolList.innerHTML = '<p class="text-muted text-sm text-center">Waiting for Host to set school names…</p>';
     return;
   }
-  schoolList.innerHTML = schools.map(s => `
+  schoolList.innerHTML = schools.map((s) => `
     <button class="team-chip w-full text-left px-4 py-3" data-id="${s.id}">
-      ${s.name || "School " + (s.id + 1)}
+      ${s.name}
     </button>
   `).join("");
-  schoolList.querySelectorAll(".team-chip").forEach(btn => {
+  schoolList.querySelectorAll(".team-chip").forEach((btn) => {
     btn.onclick = () => {
       if (window.QuizSound) QuizSound.click();
       const id = btn.getAttribute("data-id");
       location.href = `team.html?schoolId=${id}`;
     };
   });
+}
+
+if (teamBtn) {
+  teamBtn.onclick = () => {
+    if (window.QuizSound) QuizSound.click();
+    teamModal.classList.remove("hidden");
+    teamModal.classList.add("flex");
+    ensureSocket();
+    // force re-identify to get latest state
+    if (socket.connected) socket.emit("identify", { role: "display" });
+  };
 }
 
 if (closeModal) {
