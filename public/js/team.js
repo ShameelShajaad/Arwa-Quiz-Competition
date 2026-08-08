@@ -48,8 +48,10 @@ socket.on("connect", () => {
 socket.on("timer", (t) => {
   $("timer").textContent = t;
   setRing(t);
+  if (window.QuizSound && t > 0 && t <= 5) QuizSound.tick();
   if (t <= 0) disableAll();
 });
+socket.on("timerFinished", () => { if (window.QuizSound) QuizSound.timeUp(); });
 
 socket.on("state", (st) => {
   if (st.myName) $("teamName").textContent = st.myName;

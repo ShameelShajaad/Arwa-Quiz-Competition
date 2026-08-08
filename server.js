@@ -170,10 +170,9 @@ function buildPublicState(role, teamId) {
       name: schoolName(id), score: schoolById(id)?.scoreRound1 ?? 0,
     })),
     qualifiers: game.qualifiers.map((id) => schoolName(id)),
-    round2Scores: game.phase === "round2" ? {
-      a: schoolById(game.activeA)?.scoreRound2 ?? 0,
-      b: schoolById(game.activeB)?.scoreRound2 ?? 0,
-    } : null,
+    // Live Round 2 scores are HOST-ONLY during matches.
+    // Projector must not show points until competitionFinished / grand reveal.
+    round2Scores: null,
     round2Stage: game.round2Stage,
     grandRevealStep: game.grandRevealStep,
     finalRanking: game.finalRanking,
@@ -530,6 +529,8 @@ io.on("connection", (socket) => {
     game.phase = "round2";
     game.round2MatchIndex = 0;
     game.currentQuestionInMatch = 0;
+    // Round 2 starts at question #81 (0-based index 80) so R1 questions are not repeated
+    game.globalQuestionIndex = 80;
     game.activeA = game.round2Matchups[0][0];
     game.activeB = game.round2Matchups[0][1];
     game.round2FirstSchool = game.activeA;

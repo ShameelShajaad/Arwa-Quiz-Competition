@@ -11,7 +11,12 @@ function setRing(t) {
 }
 
 socket.on("connect", () => socket.emit("identify", { role: "display" }));
-socket.on("timer", (t) => { $("timer").textContent = t; setRing(t); });
+socket.on("timer", (t) => {
+  $("timer").textContent = t;
+  setRing(t);
+  if (window.QuizSound && t > 0 && t <= 5) QuizSound.tick();
+});
+socket.on("timerFinished", () => { if (window.QuizSound) QuizSound.timeUp(); });
 
 socket.on("state", (st) => {
   $("phaseLabel").textContent = (st.phase || "").replace(/_/g, " ").toUpperCase();
@@ -21,12 +26,8 @@ socket.on("state", (st) => {
     ? `Question ${(st.currentQuestionInMatch || 0) + 1} / ${maxQ}`
     : "Waiting";
 
-  if (st.phase === "round2" && st.round2Scores) {
-    $("scoreStrip").classList.remove("hidden");
-    $("scoreStrip").textContent = `${st.schoolAName}: ${st.round2Scores.a}   ·   ${st.schoolBName}: ${st.round2Scores.b}`;
-  } else {
-    $("scoreStrip").classList.add("hidden");
-  }
+  // Round 2 live points: HOST ONLY — never show on projector while answering
+  if ($("scoreStrip")) $("scoreStrip").classList.add("hidden");
 
   if (st.question && st.questionStarted) {
     $("questionText").textContent = st.question.question;
@@ -68,6 +69,7 @@ socket.on("questionStarted", (d) => {
   hideOverlay();
 });
 socket.on("optionsRevealed", (d) => {
+  if (window.QuizSound) QuizSound.reveal();
   (d.options || []).forEach((o, i) => { $("do" + i).textContent = o; });
 });
 socket.on("correctAnswer", (d) => {
@@ -80,6 +82,7 @@ socket.on("round2QuestionStarted", (d) => {
   hideOverlay();
 });
 socket.on("grandReveal", (d) => {
+  if (window.QuizSound) { if (d.isChampion) QuizSound.win(); else QuizSound.reveal(); }
   const titles = { 4: "🏅 4TH PLACE", 3: "🥉 3RD PLACE", 2: "🥈 2ND PLACE", 1: "🏆 ARWA QUIZ CHAMPION" };
   $("overlay").classList.remove("hidden");
   $("overlay").classList.add("flex");

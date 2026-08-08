@@ -173,7 +173,12 @@ socket.on("disconnect", () => {
   $("connectionBadge")?.classList.remove("online");
   if ($("connectionText")) $("connectionText").textContent = "Reconnecting…";
 });
-socket.on("timer", (t) => { if ($("timer")) $("timer").textContent = t; setRing(t); });
+socket.on("timer", (t) => {
+  if ($("timer")) $("timer").textContent = t;
+  setRing(t);
+  if (window.QuizSound && t > 0 && t <= 5) QuizSound.tick();
+});
+socket.on("timerFinished", () => { if (window.QuizSound) QuizSound.timeUp(); });
 socket.on("state", (st) => { state = st; render(st); });
 
 socket.on("questionStarted", (d) => {
@@ -188,12 +193,14 @@ socket.on("questionStarted", (d) => {
   if ($("nextQBtn")) $("nextQBtn").disabled = true;
 });
 socket.on("optionsRevealed", (d) => {
+  if (window.QuizSound) QuizSound.reveal();
   (d.options || []).forEach((opt, i) => { if ($("ho"+i)) $("ho"+i).textContent = opt; });
   if ($("revealOptBtn")) $("revealOptBtn").disabled = true;
   if ($("r2RevealOptBtn")) $("r2RevealOptBtn").disabled = true;
   if ($("revealAnsBtn")) $("revealAnsBtn").disabled = false;
 });
 socket.on("correctAnswer", (d) => {
+  if (window.QuizSound) QuizSound.correct();
   if ($("correctAnswer")) $("correctAnswer").textContent = "Correct option: " + (d.correctAnswer != null ? ["A","B","C","D"][d.correctAnswer] : "");
   if (d.correctAnswer != null && $("ho"+d.correctAnswer)) $("ho"+d.correctAnswer).classList.add("text-correct");
   if ($("revealAnsBtn")) $("revealAnsBtn").disabled = true;
